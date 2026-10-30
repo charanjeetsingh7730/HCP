@@ -1,0 +1,470 @@
+[
+  {
+    "num": "01",
+    "titleLine": "01 Boric Acid IP, Technical",
+    "preferredMake": "Indo Borex",
+    "gradeStrength": "IP / Technical",
+    "commonUses": [
+      "Antiseptic & preservative",
+      "Buffering agent",
+      "Glass, ceramics & metallurgy",
+      "Insecticide (agriculture)"
+    ]
+  },
+  {
+    "num": "02",
+    "titleLine": "02 Potassium Iodide IP",
+    "preferredMake": "Proto Chemical",
+    "gradeStrength": "IP",
+    "commonUses": [
+      "Iodine supplementation",
+      "Thyroid disorders",
+      "Pharmaceutical formulations",
+      "Food fortification"
+    ]
+  },
+  {
+    "num": "03",
+    "titleLine": "03 Iodine IP",
+    "preferredMake": "Proto Chemical",
+    "gradeStrength": "IP",
+    "commonUses": [
+      "Antiseptic & disinfectant",
+      "Surgical preparation",
+      "Pharmaceutical formulations",
+      "Water treatment"
+    ]
+  },
+  {
+    "num": "04",
+    "titleLine": "04 Povidone Iodine IP",
+    "preferredMake": "Proto Chemical",
+    "gradeStrength": "IP",
+    "commonUses": [
+      "Antiseptic (skin & wound care)",
+      "Surgical hand scrub",
+      "Infection control",
+      "Veterinary use"
+    ]
+  },
+  {
+    "num": "05",
+    "titleLine": "05 Potassium Iodate IP",
+    "preferredMake": "Proto Chemical",
+    "gradeStrength": "IP",
+    "commonUses": [
+      "Iodine fortification",
+      "Thyroid health",
+      "Food & feed industry",
+      "Pharmaceutical use"
+    ]
+  },
+  {
+    "num": "06",
+    "titleLine": "06 Potassium Permanganate",
+    "preferredMake": "Organic Industry /; Black Diamonds",
+    "gradeStrength": "Technical",
+    "commonUses": [
+      "Water treatment",
+      "Disinfection",
+      "Industrial & textile applications",
+      "Agriculture (fungicide)"
+    ]
+  },
+  {
+    "num": "07",
+    "titleLine": "07 Light Liquid Paraffin IP, BP",
+    "preferredMake": "Savita / Gandhar /; Asian",
+    "gradeStrength": "IP/BP",
+    "commonUses": [
+      "Pharmaceutical formulations",
+      "Laxative",
+      "Cosmetics & personal care",
+      "Industrial lubrication"
+    ]
+  },
+  {
+    "num": "08",
+    "titleLine": "08 Heavy Liquid Paraffin IP, BP",
+    "preferredMake": "Savita / Gandhar /; Asian",
+    "gradeStrength": "IP/BP",
+    "commonUses": [
+      "Lubricants",
+      "Industrial applications",
+      "Pharmaceutical use",
+      "Textile & rubber industry"
+    ]
+  },
+  {
+    "num": "09",
+    "titleLine": "09 Petroleum Jelly IP, BP, USP",
+    "preferredMake": "Savita / Gandhar /; Asian",
+    "gradeStrength": "IP/BP/USP",
+    "commonUses": [
+      "Skin protection & moisturizer",
+      "Pharmaceutical ointments",
+      "Cosmetics",
+      "Industrial use"
+    ]
+  },
+  {
+    "num": "10",
+    "titleLine": "10 Glycerin IP, USP",
+    "preferredMake": "Godrej",
+    "gradeStrength": "IP/USP",
+    "commonUses": [
+      "Pharmaceutical excipient",
+      "Cosmetics & personal care",
+      "Food & beverage",
+      "Cough syrups"
+    ]
+  },
+  {
+    "num": "11",
+    "titleLine": "11 SLS Liquid 28%",
+    "preferredMake": "Godrej",
+    "gradeStrength": "28%",
+    "commonUses": [
+      "Detergents & surfactants",
+      "Personal care products",
+      "Industrial cleaning",
+      "Emulsifier in formulations"
+    ]
+  },
+  {
+    "num": "12",
+    "titleLine": "12 SLES Liquid 28%",
+    "preferredMake": "Godrej",
+    "gradeStrength": "28%",
+    "commonUses": [
+      "Shampoos & personal care",
+      "Detergents",
+      "Industrial cleaners",
+      "Emulsifying agent"
+    ]
+  },
+  {
+    "num": "13",
+    "titleLine": "13 SLES Paste 70%",
+    "preferredMake": "Godrej",
+    "gradeStrength": "70%",
+    "commonUses": [
+      "Detergent formulations",
+      "Industrial cleaning",
+      "Personal care products",
+      "Liquid soap manufacturing"
+    ]
+  },
+  {
+    "num": "14",
+    "titleLine": "14 Zinc Oxide Technical",
+    "preferredMake": "Upper India",
+    "gradeStrength": "Technical",
+    "commonUses": [
+      "Rubber & tyre industry",
+      "Paints & coatings",
+      "Cosmetics & skincare",
+      "Pharmaceuticals (topical)"
+    ]
+  },
+  {
+    "num": "15",
+    "titleLine": "15 Zinc Oxide IP",
+    "preferredMake": "Rubamin",
+    "gradeStrength": "IP",
+    "commonUses": [
+      "Pharmaceutical formulations",
+      "Skin care & ointments",
+      "Zinc supplementation",
+      "Industrial applications"
+    ]
+  },
+  {
+    "num": "16",
+    "titleLine": "16 Magnesium Sulphate IP",
+    "preferredMake": "Supreme",
+    "gradeStrength": "IP",
+    "commonUses": [
+      "Laxative & electrolyte balance",
+      "Pharmaceutical formulations",
+      "Agriculture",
+      "Industrial use"
+    ]
+  },
+  {
+    "num": "17",
+    "titleLine": "17 Propylene Glycol IP/USP",
+    "preferredMake": "Manali",
+    "gradeStrength": "IP/USP",
+    "commonUses": [
+      "Pharmaceutical excipient",
+      "Cosmetics & personal care",
+      "Food & beverage",
+      "Antifreeze & industrial use"
+    ]
+  },
+  {
+    "num": "18",
+    "titleLine": "18 Copper Sulphate",
+    "preferredMake": "(To be confirmed)",
+    "gradeStrength": "Technical / AR (as; required)",
+    "commonUses": [
+      "Agriculture (fungicide)",
+      "Industrial applications",
+      "Electroplating",
+      "Nutrition (animal feed)"
+    ]
+  },
+  {
+    "num": "19",
+    "titleLine": "19 Zinc Sulphate",
+    "preferredMake": "(To be confirmed)",
+    "gradeStrength": "Technical / AR (as; required)",
+    "commonUses": [
+      "Agriculture (fertilizer)",
+      "Pharmaceuticals",
+      "Industrial applications",
+      "Animal feed"
+    ]
+  },
+  {
+    "num": "20",
+    "titleLine": "20 Turpentine Oil",
+    "preferredMake": "(To be confirmed)",
+    "gradeStrength": "Technical",
+    "commonUses": [
+      "Paints & varnishes",
+      "Solvents",
+      "Industrial applications",
+      "Fragrance industry"
+    ]
+  },
+  {
+    "num": "21",
+    "titleLine": "21 Rosin (Colophony)",
+    "preferredMake": "(To be confirmed)",
+    "gradeStrength": "Technical",
+    "commonUses": [
+      "Adhesives",
+      "Printing inks",
+      "Paints & coatings",
+      "Rubber & paper industries"
+    ]
+  },
+  {
+    "num": "22",
+    "titleLine": "22 Starch IP",
+    "preferredMake": "Sukhjit",
+    "gradeStrength": "IP",
+    "commonUses": [
+      "Tablet binder & disintegrant",
+      "Pharmaceutical excipient",
+      "Food industry",
+      "Cosmetics (thickening agent)"
+    ]
+  },
+  {
+    "num": "23",
+    "titleLine": "23 Sorbitol IP",
+    "preferredMake": "Sukhjit",
+    "gradeStrength": "IP",
+    "commonUses": [
+      "Pharmaceutical excipient",
+      "Syrups & oral care",
+      "Personal care products",
+      "Food industry"
+    ]
+  },
+  {
+    "num": "24",
+    "titleLine": "24 SLES 28%",
+    "preferredMake": "Shree Shyam Group",
+    "gradeStrength": "28%",
+    "commonUses": [
+      "Shampoos & personal care",
+      "Detergents",
+      "Industrial cleaners",
+      "Emulsifying agent"
+    ]
+  },
+  {
+    "num": "25",
+    "titleLine": "25 SLES 70%",
+    "preferredMake": "Shree Shyam Group",
+    "gradeStrength": "70%",
+    "commonUses": [
+      "Detergent formulations",
+      "Industrial cleaning",
+      "Personal care products",
+      "Liquid soap manufacturing"
+    ]
+  },
+  {
+    "num": "26",
+    "titleLine": "26 SLS",
+    "preferredMake": "Shree Shyam Group",
+    "gradeStrength": "(To be confirmed)",
+    "commonUses": [
+      "Detergents & surfactants",
+      "Personal care products",
+      "Industrial cleaning",
+      "Emulsifier in formulations"
+    ]
+  },
+  {
+    "num": "27",
+    "titleLine": "27 AOS 38%",
+    "preferredMake": "Shree Shyam Group",
+    "gradeStrength": "38%",
+    "commonUses": [
+      "Shampoos & body washes",
+      "Liquid detergents & dishwash",
+      "Personal care products",
+      "Industrial cleaning"
+    ]
+  },
+  {
+    "num": "28",
+    "titleLine": "28 LABSA 90%",
+    "preferredMake": "Shree Shyam Group",
+    "gradeStrength": "90%",
+    "commonUses": [
+      "Detergent powders & liquids",
+      "Dishwash & cleaning products",
+      "Industrial cleaners",
+      "Surfactant intermediate"
+    ]
+  },
+  {
+    "num": "29",
+    "titleLine": "29 LABSA 96%",
+    "preferredMake": "Shree Shyam Group",
+    "gradeStrength": "96%",
+    "commonUses": [
+      "Detergent powders & liquids",
+      "Dishwash & cleaning products",
+      "Industrial cleaners",
+      "Surfactant intermediate"
+    ]
+  },
+  {
+    "num": "30",
+    "titleLine": "30 Glycerin IP",
+    "preferredMake": "Shree Shyam Group",
+    "gradeStrength": "IP",
+    "commonUses": [
+      "Pharmaceutical excipient",
+      "Cosmetics & personal care",
+      "Food & beverage",
+      "Cough syrups"
+    ]
+  },
+  {
+    "num": "31",
+    "titleLine": "31 Talcum Powder IP 98%",
+    "preferredMake": "Neelkanth Jodhpur",
+    "gradeStrength": "IP / 98%",
+    "commonUses": [
+      "Dusting & baby powders",
+      "Cosmetics & personal care",
+      "Pharmaceutical excipient",
+      "Industrial applications"
+    ]
+  },
+  {
+    "num": "32",
+    "titleLine": "32 Zinc Oxide IP",
+    "preferredMake": "Neelkanth Jodhpur",
+    "gradeStrength": "IP",
+    "commonUses": [
+      "Pharmaceutical formulations",
+      "Skin care & ointments",
+      "Zinc supplementation",
+      "Industrial applications"
+    ]
+  },
+  {
+    "num": "33",
+    "titleLine": "33 Maize Starch IP",
+    "preferredMake": "Bluecraft",
+    "gradeStrength": "IP",
+    "commonUses": [
+      "Tablet binder & disintegrant",
+      "Pharmaceutical excipient",
+      "Food industry",
+      "Cosmetics (thickening agent)"
+    ]
+  },
+  {
+    "num": "34",
+    "titleLine": "34 Castor Oil",
+    "preferredMake": "(To be confirmed)",
+    "gradeStrength": "(To be confirmed)",
+    "commonUses": [
+      "Soaps & cosmetics",
+      "Pharmaceutical & personal care",
+      "Paints, coatings & lubricants",
+      "Industrial applications"
+    ]
+  },
+  {
+    "num": "35",
+    "titleLine": "35 Linseed Oil",
+    "preferredMake": "(To be confirmed)",
+    "gradeStrength": "(To be confirmed)",
+    "commonUses": [
+      "Paints & varnishes",
+      "Wood finishing",
+      "Printing inks",
+      "Linoleum & coatings"
+    ]
+  },
+  {
+    "num": "36",
+    "titleLine": "36 Bleaching Powder",
+    "preferredMake": "(To be confirmed)",
+    "gradeStrength": "(To be confirmed)",
+    "commonUses": [
+      "Water treatment & disinfection",
+      "Textile & paper bleaching",
+      "Sanitation",
+      "Industrial cleaning"
+    ]
+  },
+  {
+    "num": "37",
+    "titleLine": "37 Caustic Soda",
+    "preferredMake": "(To be confirmed)",
+    "gradeStrength": "(To be confirmed)",
+    "commonUses": [
+      "Soap & detergent manufacturing",
+      "Paper & pulp",
+      "Textile processing",
+      "Alumina & chemical industry"
+    ]
+  },
+  {
+    "num": "38",
+    "titleLine": "38 Sodium Bicarbonate",
+    "preferredMake": "(To be confirmed)",
+    "gradeStrength": "(To be confirmed)",
+    "commonUses": [
+      "Pharmaceutical formulations",
+      "Food & baking",
+      "Detergents & cleaning",
+      "Industrial & water treatment"
+    ]
+  },
+  {
+    "num": "39",
+    "titleLine": "39 Soda Ash",
+    "preferredMake": "(To be confirmed)",
+    "gradeStrength": "(To be confirmed)",
+    "commonUses": [
+      "Glass manufacturing",
+      "Detergents & soaps",
+      "Water treatment",
+      "Chemical industry"
+    ]
+  }
+]
