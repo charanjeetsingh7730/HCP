@@ -1,6 +1,8 @@
 import { MetadataRoute } from 'next';
 import { getAllProducts, getAllCategories, getAllManufacturers } from '@/lib/products';
 
+export const dynamic = 'force-static';
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.hcpchem.com';
   const products = getAllProducts();
