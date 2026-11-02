@@ -36,14 +36,14 @@ export function CartTray() {
               </span>
             </span>
             <span className="min-w-0 flex-1">
-              <span className="block text-sm font-semibold">
+              <span className="block truncate text-sm font-semibold">
                 {count} {count === 1 ? 'product' : 'products'} in cart
               </span>
-              <span className="block max-w-[220px] truncate text-xs text-white/60">
+              <span className="block truncate text-xs text-white/70">
                 {items.map((i) => i.name).join(', ')}
               </span>
             </span>
-            <span className="flex items-center gap-1 text-sm font-semibold text-brand-light group-hover:text-white">
+            <span className="flex shrink-0 items-center gap-1 text-sm font-semibold text-brand-light group-hover:text-white">
               View Cart <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </span>
           </Link>

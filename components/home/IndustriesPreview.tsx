@@ -1,19 +1,24 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, ArrowRight } from 'lucide-react';
 import { INDUSTRY_SECTORS } from '@/data/industries';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { buttonStyles } from '@/components/ui/button-styles';
 
 export function IndustriesPreview() {
   return (
     <section className="section bg-white">
       <div className="container-x">
         <SectionHeading
-          align="center"
           eyebrow="Industries we serve"
           title="Trusted by formulators across sectors"
           description="Recommended raw materials and grade guidance for each industry we supply."
+          action={
+            <Link href="/industries" className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:text-brand-dark">
+              View all industries <ArrowRight className="h-4 w-4" />
+            </Link>
+          }
         />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
           {INDUSTRY_SECTORS.map((ind) => (
@@ -43,6 +48,11 @@ export function IndustriesPreview() {
               </div>
             </Link>
           ))}
+        </div>
+        <div className="mt-8 flex justify-center md:hidden">
+          <Link href="/industries" className={buttonStyles('outline', 'md', 'w-full sm:w-auto')}>
+            View all industries <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </div>
     </section>

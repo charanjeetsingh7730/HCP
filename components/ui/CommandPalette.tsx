@@ -24,12 +24,15 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
 
   useEffect(() => setActive(0), [query]);
 
-  // Global Ctrl/Cmd + K shortcut
+  // Global Ctrl/Cmd + K shortcut and Escape listener
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         onOpenChange(!open);
+      } else if (e.key === 'Escape' && open) {
+        e.preventDefault();
+        onOpenChange(false);
       }
     };
     window.addEventListener('keydown', onKey);

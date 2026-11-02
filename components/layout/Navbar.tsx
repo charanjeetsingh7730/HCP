@@ -288,11 +288,25 @@ export function Navbar() {
               </div>
 
               <div className="flex-1 overflow-y-auto px-5 py-5">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileOpen(false);
+                    setSearchOpen(true);
+                  }}
+                  className="mb-4 flex w-full items-center gap-2.5 rounded-xl border border-line bg-mist px-3.5 py-2.5 text-left text-sm text-muted transition-colors hover:border-brand hover:text-brand"
+                  aria-label="Search products"
+                >
+                  <Search className="h-4 w-4 text-brand" />
+                  <span>Search chemicals, grades…</span>
+                </button>
+
                 <nav className="space-y-1" aria-label="Mobile navigation">
                   <Link
                     href="/"
+                    onClick={() => setMobileOpen(false)}
                     className={clsx(
-                      'block rounded-xl px-4 py-3 text-base font-semibold',
+                      'block rounded-xl px-4 py-3 text-base font-semibold transition-colors',
                       pathname === '/' ? 'bg-brand-50 text-brand' : 'text-ink hover:bg-mist'
                     )}
                   >
@@ -302,8 +316,9 @@ export function Navbar() {
                     <Link
                       key={link.href}
                       href={link.href}
+                      onClick={() => setMobileOpen(false)}
                       className={clsx(
-                        'block rounded-xl px-4 py-3 text-base font-semibold',
+                        'block rounded-xl px-4 py-3 text-base font-semibold transition-colors',
                         isActive(link.href) ? 'bg-brand-50 text-brand' : 'text-ink hover:bg-mist'
                       )}
                     >
@@ -318,7 +333,8 @@ export function Navbar() {
                     <Link
                       key={cat.id}
                       href={`/categories/${cat.slug}`}
-                      className="flex items-center justify-between rounded-xl px-4 py-2.5 text-sm text-body hover:bg-mist hover:text-brand"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center justify-between rounded-xl px-4 py-2.5 text-sm text-body transition-colors hover:bg-mist hover:text-brand"
                     >
                       {cat.shortName}
                       <span className="text-xs text-muted">{cat.catalogCount}</span>
@@ -328,7 +344,19 @@ export function Navbar() {
               </div>
 
               <div className="space-y-3 border-t border-line p-5">
-                <Link href="/cart" className={buttonStyles('primary', 'lg', 'w-full')}>
+                <Link
+                  href="/request-quote"
+                  onClick={() => setMobileOpen(false)}
+                  className={buttonStyles('primary', 'lg', 'w-full')}
+                >
+                  <FileText className="h-4 w-4" />
+                  Get a Quote
+                </Link>
+                <Link
+                  href="/cart"
+                  onClick={() => setMobileOpen(false)}
+                  className={buttonStyles('outline', 'lg', 'w-full')}
+                >
                   <ShoppingCart className="h-4 w-4" />
                   View Cart {count > 0 && `(${count})`}
                 </Link>

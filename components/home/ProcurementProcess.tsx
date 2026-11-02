@@ -45,7 +45,7 @@ export function ProcurementProcess() {
                   <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-gradient shadow-brand">
                     <Icon className="h-7 w-7" />
                   </span>
-                  <span className="font-display text-4xl font-extrabold text-white/10">0{i + 1}</span>
+                  <span className="font-display text-4xl font-extrabold text-white/30">0{i + 1}</span>
                 </div>
                 <h3 className="mt-6 text-lg font-bold text-white">{title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-white/65">{text}</p>

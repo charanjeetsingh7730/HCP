@@ -115,18 +115,18 @@ export function Footer() {
       </div>
 
       <div className="relative border-t border-white/10">
-        <div className="container-x flex flex-col items-center justify-between gap-3 py-6 text-xs text-white/50 sm:flex-row">
+        <div className="container-x flex flex-col items-center justify-between gap-3 py-6 pb-24 sm:pb-6 text-xs text-white/50 sm:flex-row">
           <p>
             © {year} {HCP_COMPANY.legalName}. All rights reserved.
           </p>
           <div className="flex items-center gap-5">
-            <Link href="/privacy" className="hover:text-white">
+            <Link href="/privacy" className="transition-colors hover:text-white">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="hover:text-white">
+            <Link href="/terms" className="transition-colors hover:text-white">
               Terms of Supply
             </Link>
-            <a href="/sitemap.xml" className="hover:text-white">
+            <a href="/sitemap.xml" className="transition-colors hover:text-white">
               Sitemap
             </a>
           </div>

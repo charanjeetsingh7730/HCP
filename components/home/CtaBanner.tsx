@@ -23,7 +23,7 @@ export function CtaBanner() {
               </p>
             </div>
             <div className="flex flex-col gap-3 lg:col-span-2 lg:items-end">
-              <Link href="/request-quote" className={buttonStyles('outline', 'lg', 'border-white bg-white text-navy hover:bg-brand-50 hover:text-navy')}>
+              <Link href="/request-quote" className={buttonStyles('outline', 'lg', 'w-full sm:w-auto border-white bg-white text-navy hover:bg-brand-50 hover:text-navy')}>
                 Send an Enquiry <ArrowRight className="h-4 w-4" />
               </Link>
               <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-white/90">

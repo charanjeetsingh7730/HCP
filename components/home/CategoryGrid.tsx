@@ -28,18 +28,18 @@ export function CategoryCard({ category, large }: { category: ProductCategory; l
         sizes={large ? '(min-width: 1024px) 50vw, 100vw' : '(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw'}
         className="object-cover transition-transform duration-700 group-hover:scale-105"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/55 to-navy-950/5" />
+      <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/75 to-navy-950/20" />
 
       <div className="absolute left-5 top-5 flex h-11 w-11 items-center justify-center rounded-xl bg-white/15 ring-1 ring-white/25 backdrop-blur">
         <Icon className="h-5 w-5" />
       </div>
-      <span className="absolute right-5 top-5 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-navy">
+      <span className="absolute right-5 top-5 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-navy shadow-soft">
         {category.catalogCount} products
       </span>
 
       <div className="relative p-6">
         <h3 className="font-display text-xl font-bold leading-snug text-white sm:text-2xl">{category.shortName}</h3>
-        <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-white/75">{category.description}</p>
+        <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-white/85">{category.description}</p>
         <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-light transition-colors group-hover:text-white">
           Explore range <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
         </span>

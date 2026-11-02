@@ -33,7 +33,7 @@ export function ProductCard({ product, viewMode = 'grid' }: ProductCardProps) {
   if (viewMode === 'list') {
     return (
       <div className="group card flex flex-col gap-4 p-3 transition-all duration-300 hover:border-brand-200 hover:shadow-card sm:flex-row sm:items-center sm:p-4">
-        <Link href={href} className="relative h-40 w-full shrink-0 overflow-hidden rounded-xl sm:h-24 sm:w-32" tabIndex={-1}>
+        <Link href={href} className="relative h-40 w-full shrink-0 overflow-hidden rounded-xl sm:h-24 sm:w-32" aria-label={`View details for ${product.name}`}>
           <ProductImage product={product} size="thumb" />
         </Link>
         <div className="min-w-0 flex-1">
@@ -62,7 +62,7 @@ export function ProductCard({ product, viewMode = 'grid' }: ProductCardProps) {
 
   return (
     <article className="group card flex h-full flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-lift">
-      <Link href={href} className="relative block aspect-[4/3] overflow-hidden" tabIndex={-1} aria-hidden="true">
+      <Link href={href} className="relative block aspect-[4/3] overflow-hidden" aria-label={`View details for ${product.name}`}>
         <ProductImage product={product} />
         <span className="absolute left-3 top-3 rounded-md bg-white/90 px-2 py-0.5 text-[11px] font-semibold text-navy shadow-soft backdrop-blur">
           #{product.catalogNumber}

@@ -36,16 +36,16 @@ export function Hero() {
       <div className="container-x grid items-center gap-12 py-14 sm:py-20 lg:grid-cols-12 lg:gap-10 lg:py-24">
         {/* Copy */}
         <div className="animate-fade-up lg:col-span-6">
-          <span className="inline-flex items-center gap-2 rounded-full border border-brand/15 bg-white/80 px-3.5 py-1.5 text-xs font-semibold text-navy shadow-soft backdrop-blur">
-            <span className="h-2 w-2 rounded-full bg-leaf" />
-            Trading · Procurement · Supply — Panchkula, Haryana
+          <span className="inline-flex max-w-full flex-wrap items-center gap-2 rounded-full border border-brand/15 bg-white/80 px-3.5 py-1.5 text-xs font-semibold text-navy shadow-soft backdrop-blur">
+            <span className="h-2 w-2 shrink-0 rounded-full bg-leaf" />
+            <span>Trading · Procurement · Supply — Panchkula, Haryana</span>
           </span>
 
           <h1 className="mt-6 text-4xl font-extrabold leading-[1.08] tracking-tight text-navy sm:text-5xl xl:text-6xl">
             Pharmaceutical &amp; Industrial <span className="text-gradient">Raw Materials</span>, Sourced Right.
           </h1>
 
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-body">
+          <p className="mt-6 max-w-xl text-base sm:text-lg leading-relaxed text-body">
             IP, BP, USP and technical-grade chemicals from established manufacturers — with batch COA support and dependable
             delivery to Baddi, Derabassi, Chandigarh and across North India.
           </p>
@@ -57,9 +57,9 @@ export function Hero() {
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search a chemical, grade or manufacturer…"
+                placeholder="Search chemical, grade, manufacturer…"
                 aria-label="Search products"
-                className="h-11 w-full min-w-0 bg-transparent text-[15px] text-ink placeholder:text-muted focus:outline-none"
+                className="h-11 w-full min-w-0 bg-transparent text-sm sm:text-[15px] text-ink placeholder:text-muted focus:outline-none"
               />
               <button type="submit" className={buttonStyles('primary', 'md', 'shrink-0')}>
                 Search
@@ -88,11 +88,11 @@ export function Hero() {
             </Link>
           </div>
 
-          <dl className="mt-10 grid max-w-xl grid-cols-3 gap-4 border-t border-line pt-6">
+          <dl className="mt-10 grid max-w-xl grid-cols-3 gap-2 sm:gap-4 border-t border-line pt-6">
             {stats.map((s) => (
               <div key={s.label}>
-                <dt className="text-xs text-muted">{s.label}</dt>
-                <dd className="mt-1 font-display text-xl font-extrabold text-navy sm:text-2xl">{s.value}</dd>
+                <dt className="text-[11px] sm:text-xs text-muted">{s.label}</dt>
+                <dd className="mt-1 font-display text-base font-extrabold text-navy sm:text-xl lg:text-2xl">{s.value}</dd>
               </div>
             ))}
           </dl>
@@ -113,26 +113,26 @@ export function Hero() {
               <div className="absolute inset-0 bg-gradient-to-t from-navy-950/50 via-transparent to-transparent" />
             </div>
 
-            <div className="absolute -left-3 top-8 w-56 animate-float rounded-2xl border border-white/70 bg-white/95 p-4 shadow-lift backdrop-blur sm:-left-8">
-              <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-leaf-50 text-leaf-dark">
-                  <ShieldCheck className="h-5 w-5" />
+            <div className="absolute left-2 top-4 w-48 sm:-left-8 sm:top-8 sm:w-56 animate-float rounded-2xl border border-white/70 bg-white/95 p-3 sm:p-4 shadow-lift backdrop-blur">
+              <div className="flex items-center gap-2.5 sm:gap-3">
+                <span className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-xl bg-leaf-50 text-leaf-dark">
+                  <ShieldCheck className="h-4 w-4 sm:h-5 sm:w-5" />
                 </span>
                 <div>
-                  <p className="text-sm font-bold text-ink">Grade assured</p>
-                  <p className="text-xs text-muted">IP / BP / USP / Technical</p>
+                  <p className="text-xs sm:text-sm font-bold text-ink">Grade assured</p>
+                  <p className="text-[11px] sm:text-xs text-muted">IP / BP / USP / Technical</p>
                 </div>
               </div>
             </div>
 
-            <div className="absolute -right-3 bottom-24 w-60 animate-float rounded-2xl border border-white/70 bg-white/95 p-4 shadow-lift backdrop-blur [animation-delay:1.5s] sm:-right-6">
-              <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand">
-                  <FileCheck2 className="h-5 w-5" />
+            <div className="absolute right-2 bottom-16 w-52 sm:-right-6 sm:bottom-24 sm:w-60 animate-float rounded-2xl border border-white/70 bg-white/95 p-3 sm:p-4 shadow-lift backdrop-blur [animation-delay:1.5s]">
+              <div className="flex items-center gap-2.5 sm:gap-3">
+                <span className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand">
+                  <FileCheck2 className="h-4 w-4 sm:h-5 sm:w-5" />
                 </span>
                 <div>
-                  <p className="text-sm font-bold text-ink">COA with quotation</p>
-                  <p className="text-xs text-muted">Manufacturer batch reports</p>
+                  <p className="text-xs sm:text-sm font-bold text-ink">COA with quotation</p>
+                  <p className="text-[11px] sm:text-xs text-muted">Manufacturer batch reports</p>
                 </div>
               </div>
             </div>

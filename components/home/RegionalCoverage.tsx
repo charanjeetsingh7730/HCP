@@ -15,37 +15,43 @@ const HUBS = [
 export function RegionalCoverage() {
   return (
     <section className="section bg-mist">
-      <div className="container-x grid items-center gap-12 lg:grid-cols-2">
-        <div>
-          <SectionHeading
-            className="!mb-8"
-            eyebrow="Supply network"
-            title="Close to North India's pharma and chemical belts"
-            description="Our Panchkula base sits next to the formulation and processing clusters of Himachal Pradesh, Punjab, Haryana and Chandigarh."
-          />
-          <ul className="grid gap-3 sm:grid-cols-2">
-            {HUBS.map((hub, i) => (
-              <li key={hub.name} className="card p-5">
-                <div className="flex items-center gap-2">
-                  <span
-                    className={
-                      i === 0
-                        ? 'flex h-8 w-8 items-center justify-center rounded-lg bg-brand text-white'
-                        : 'flex h-8 w-8 items-center justify-center rounded-lg bg-brand-50 text-brand'
-                    }
-                  >
-                    {i === 0 ? <Warehouse className="h-4 w-4" /> : <MapPin className="h-4 w-4" />}
-                  </span>
-                  <h3 className="text-sm font-bold">{hub.name}</h3>
-                </div>
-                <p className="mt-3 text-xs font-semibold uppercase tracking-wider text-leaf-dark">{hub.role}</p>
-                <p className="mt-1 text-sm leading-relaxed text-body">{hub.detail}</p>
-              </li>
-            ))}
-          </ul>
+      <div className="container-x grid items-stretch gap-10 lg:gap-12 lg:grid-cols-2">
+        {/* Left Column: Network Hubs */}
+        <div className="flex flex-col justify-between h-full">
+          <div>
+            <SectionHeading
+              className="!mb-6"
+              eyebrow="Supply network"
+              title="Close to North India's pharma and chemical belts"
+              description="Our Panchkula base sits next to the formulation and processing clusters of Himachal Pradesh, Punjab, Haryana and Chandigarh."
+            />
+            <ul className="grid gap-3 sm:grid-cols-2">
+              {HUBS.map((hub, i) => (
+                <li key={hub.name} className="card p-4 sm:p-4.5 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span
+                        className={
+                          i === 0
+                            ? 'flex h-8 w-8 items-center justify-center rounded-lg bg-brand text-white'
+                            : 'flex h-8 w-8 items-center justify-center rounded-lg bg-brand-50 text-brand'
+                        }
+                      >
+                        {i === 0 ? <Warehouse className="h-4 w-4" /> : <MapPin className="h-4 w-4" />}
+                      </span>
+                      <h3 className="text-sm font-bold text-ink">{hub.name}</h3>
+                    </div>
+                    <p className="mt-2.5 text-[11px] font-semibold uppercase tracking-wider text-leaf-dark">{hub.role}</p>
+                    <p className="mt-1 text-xs sm:text-sm leading-relaxed text-body">{hub.detail}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-lift">
+        {/* Right Column: Warehouse Image Card — matching left height */}
+        <div className="relative h-full min-h-[440px] sm:min-h-[500px] lg:min-h-full overflow-hidden rounded-3xl shadow-lift flex flex-col justify-end">
           <Image
             src="/assets/photos/warehouse.jpg"
             alt="Organised warehouse with palletised stock ready for dispatch"
@@ -53,13 +59,16 @@ export function RegionalCoverage() {
             sizes="(min-width: 1024px) 45vw, 100vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-navy-950/75 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 p-6 text-white sm:p-8">
-            <p className="font-display text-xl font-bold sm:text-2xl">Need it delivered to your plant?</p>
-            <p className="mt-1 max-w-md text-sm text-white/80">{HCP_COMPANY.serviceRegions.description}</p>
+          <div className="absolute inset-0 bg-gradient-to-t from-navy-950/90 via-navy-950/45 to-transparent" />
+          <div className="relative z-10 p-6 sm:p-8 text-white">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm mb-3">
+              <Warehouse className="h-3.5 w-3.5" /> Panchkula Dispatch Terminal
+            </span>
+            <p className="font-display text-xl sm:text-2xl font-bold">Need it delivered to your plant?</p>
+            <p className="mt-2 max-w-md text-xs sm:text-sm leading-relaxed text-white/85">{HCP_COMPANY.serviceRegions.description}</p>
             <Link
               href="/contact"
-              className="mt-4 inline-flex items-center gap-1.5 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-navy hover:bg-brand-50"
+              className="mt-5 inline-flex items-center gap-1.5 rounded-xl bg-white px-4 py-2.5 text-xs sm:text-sm font-semibold text-navy transition-colors hover:bg-brand-50"
             >
               Talk to our dispatch desk <ArrowRight className="h-4 w-4" />
             </Link>
