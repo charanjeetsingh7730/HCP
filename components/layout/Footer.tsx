@@ -1,11 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Mail, Phone, MapPin, ArrowRight, ShieldCheck, FileCheck2, Truck } from 'lucide-react';
+import { Mail, Phone, MapPin, ShieldCheck, FileCheck2, Truck } from 'lucide-react';
 import { HCP_COMPANY } from '@/data/company';
 import { PRODUCT_CATEGORIES } from '@/data/categories';
 import { PRODUCTS } from '@/data/products';
-import { buttonStyles } from '@/components/ui/button-styles';
 
 const COMPANY_LINKS = [
   { href: '/about', label: 'About HCP' },
@@ -20,19 +19,25 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden bg-navy-950 text-white/70">
-      <div className="bg-hex-light absolute inset-0" aria-hidden="true" />
+    <footer className="relative isolate overflow-hidden bg-navy-950 text-white/70">
+      {/* Molecule-network pattern, brightest at the top and fading out */}
+      <div className="bg-molecule-light animate-pattern-drift absolute inset-0 -z-10 [mask-image:linear-gradient(to_bottom,#000,transparent_85%)]" aria-hidden="true" />
+      <div className="animate-aurora absolute -bottom-40 -right-40 -z-10 h-96 w-96 rounded-full bg-leaf/20 blur-3xl [animation-delay:-7s]" aria-hidden="true" />
+      <div className="absolute -top-40 left-1/2 -z-10 -translate-x-1/2" aria-hidden="true">
+        <div className="animate-aurora h-80 w-[48rem] rounded-full bg-brand/30 blur-3xl" />
+      </div>
+      <div className="absolute inset-x-0 top-0 h-1 bg-brand-gradient" aria-hidden="true" />
 
       {/* Assurance strip */}
-      <div className="relative border-b border-white/10">
+      <div className="relative border-b border-white/10 bg-white/[0.03] backdrop-blur-sm">
         <div className="container-x grid gap-6 py-8 sm:grid-cols-3">
           {[
-            { icon: ShieldCheck, title: 'IP / BP / USP grades', text: 'Pharmacopoeial and technical grades kept strictly separate' },
-            { icon: FileCheck2, title: 'COA on request', text: 'Manufacturer batch Certificate of Analysis with your quote' },
-            { icon: Truck, title: 'Regional delivery', text: 'Panchkula, Chandigarh, Derabassi, Baddi & North India' },
+            { icon: ShieldCheck, title: 'IP / BP / USP Grades', text: 'Pharmacopoeial and technical grades kept strictly separate' },
+            { icon: FileCheck2, title: 'COA on Request', text: 'Manufacturer batch Certificate of Analysis with your quote' },
+            { icon: Truck, title: 'Regional Delivery', text: 'Panchkula, Chandigarh, Derabassi, Baddi & North India' },
           ].map(({ icon: Icon, title, text }) => (
             <div key={title} className="flex items-start gap-3">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/5 text-brand-light ring-1 ring-white/10">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand to-leaf text-white shadow-brand">
                 <Icon className="h-5 w-5" />
               </span>
               <div>
@@ -51,9 +56,6 @@ export function Footer() {
           </Link>
           <p className="mt-5 max-w-sm text-sm leading-relaxed">{HCP_COMPANY.description}</p>
           <p className="mt-4 font-display text-sm font-semibold text-leaf">“{HCP_COMPANY.tagline}”</p>
-          <Link href="/request-quote" className={buttonStyles('primary', 'md', 'mt-6')}>
-            Send an Enquiry <ArrowRight className="h-4 w-4" />
-          </Link>
         </div>
 
         <div className="lg:col-span-3">
@@ -68,7 +70,7 @@ export function Footer() {
             ))}
             <li>
               <Link href="/products" className="font-semibold text-brand-light hover:text-white">
-                All {PRODUCTS.length} products →
+                All {PRODUCTS.length} Products →
               </Link>
             </li>
           </ul>

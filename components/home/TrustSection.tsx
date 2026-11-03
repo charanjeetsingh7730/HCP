@@ -3,109 +3,103 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ShieldCheck, FileCheck2, Factory, Scale, ArrowRight } from 'lucide-react';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
 
 const PILLARS = [
   {
     icon: ShieldCheck,
-    title: 'Strict grade segregation',
+    title: 'Strict Grade Segregation',
     text: 'Pharmacopoeial (IP, BP, USP) and technical grades are sourced and supplied separately — never interchanged.',
-    tone: 'leaf',
   },
   {
     icon: FileCheck2,
-    title: 'COA & batch documentation',
+    title: 'COA & Batch Documentation',
     text: 'Manufacturer Certificates of Analysis confirm assay, impurity limits and appearance for each lot.',
-    tone: 'brand',
   },
   {
     icon: Factory,
-    title: 'Traceable manufacturer sources',
+    title: 'Traceable Manufacturer Sources',
     text: 'Every product lists its documented make — Godrej, Savita, Proto Chemical, Manali, Sukhjit and more.',
-    tone: 'brand',
   },
   {
     icon: Scale,
-    title: 'Honest, enquiry-based pricing',
+    title: 'Honest, Enquiry-Based Pricing',
     text: 'No fabricated online prices. Each quote reflects real volumes, packaging and freight to your plant.',
-    tone: 'leaf',
   },
 ];
 
+// Alternating icon tones for the pillar list
+const ICON_TONES = ['bg-brand-50 text-brand', 'bg-leaf-50 text-leaf-dark'];
+
 export function TrustSection() {
   return (
-    <section className="section overflow-hidden bg-white">
-      <div className="container-x grid items-stretch gap-10 lg:gap-14 lg:grid-cols-2">
-        {/* Left Column: Image & Badge Collage — stretched to match content height */}
-        <div className="relative order-2 lg:order-1 h-full flex flex-col">
-          <div className="grid grid-cols-5 gap-3.5 sm:gap-4 h-full min-h-[460px] sm:min-h-[520px] lg:min-h-[580px]">
-            <div className="relative col-span-3 h-full min-h-[360px] sm:min-h-[420px] lg:min-h-full overflow-hidden rounded-2xl sm:rounded-3xl shadow-lift">
-              <Image
-                src="/assets/photos/qc-analyst.jpg"
-                alt="Quality control analyst examining a sample"
-                fill
-                sizes="(min-width: 1024px) 30vw, 60vw"
-                className="object-cover"
-              />
-            </div>
-            <div className="col-span-2 flex flex-col justify-between gap-3.5 sm:gap-4 h-full">
-              <div className="relative flex-1 min-h-[160px] sm:min-h-[200px] overflow-hidden rounded-2xl sm:rounded-3xl shadow-card">
-                <Image
-                  src="/assets/photos/sample-tubes.jpg"
-                  alt="Labelled raw material sample tubes"
-                  fill
-                  sizes="25vw"
-                  className="object-cover"
-                />
-              </div>
-              <div className="rounded-2xl sm:rounded-3xl bg-brand-gradient p-4 sm:p-5 text-white shadow-brand shrink-0">
-                <p className="font-display text-2xl sm:text-3xl font-extrabold">100%</p>
-                <p className="mt-1 text-xs sm:text-sm leading-snug text-white/90">Original manufacturer packaging &amp; seals</p>
-                <div className="mt-2.5 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-2.5 py-0.5 text-[11px] font-semibold text-white">
-                  <ShieldCheck className="h-3 w-3 text-leaf-100" /> Monograph Verified
-                </div>
-              </div>
+    <section className="section relative isolate overflow-hidden bg-white">
+      <div className="absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-line to-transparent" aria-hidden="true" />
+      <div className="absolute -right-40 top-1/3 -z-10 h-96 w-96 rounded-full bg-brand-light/10 blur-3xl" aria-hidden="true" />
+
+      <div className="container-x grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
+        {/* Photo with stat overlay */}
+        <Reveal from="left" className="order-2 lg:order-1 lg:col-span-5">
+          <div className="group relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-lift sm:aspect-[4/3] lg:aspect-[4/5]">
+            <Image
+              src="/assets/photos/qc-analyst.jpg"
+              alt="Quality control analyst examining a sample"
+              fill
+              sizes="(min-width: 1024px) 40vw, 100vw"
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy-950/85 via-navy-950/10 to-transparent" />
+            <span className="absolute left-5 top-5 inline-flex items-center gap-1.5 rounded-full bg-leaf px-3 py-1 text-xs font-semibold text-white shadow-soft">
+              <ShieldCheck className="h-3.5 w-3.5" /> Monograph Verified
+            </span>
+            <div className="absolute inset-x-5 bottom-5 flex items-end gap-4 text-white sm:inset-x-6 sm:bottom-6">
+              <p className="font-display text-5xl font-extrabold leading-none sm:text-6xl">100%</p>
+              <p className="pb-1 text-sm leading-snug text-white/85">
+                Original Manufacturer
+                <br />
+                Packaging &amp; Seals
+              </p>
             </div>
           </div>
-        </div>
+        </Reveal>
 
-        {/* Right Column: Content & 4 Pillars — balanced vertical spacing */}
-        <div className="order-1 lg:order-2 flex flex-col justify-between h-full">
-          <div>
+        {/* Copy + pillars as an open list (no boxes) */}
+        <div className="order-1 lg:order-2 lg:col-span-7">
+          <Reveal from="right">
             <SectionHeading
-              className="!mb-6"
+              className="!mb-8"
               eyebrow="Why HCP"
-              title="Quality you can document, supply you can plan around"
+              title={
+                <>
+                  Quality You Can <span className="text-gradient">Document</span>, Supply You Can Plan Around
+                </>
+              }
               description="Haryana Chemical & Pharmaceuticals connects reputable chemical producers with formulators who need verified compliance, accurate paperwork and dependable dispatch."
             />
-            <div className="grid gap-3.5 sm:grid-cols-2">
-              {PILLARS.map(({ icon: Icon, title, text, tone }) => (
-                <div
-                  key={title}
-                  className="rounded-2xl border border-line bg-white p-4 sm:p-4.5 transition-colors hover:border-brand-200 hover:bg-mist flex flex-col justify-between"
-                >
-                  <div>
-                    <span
-                      className={
-                        tone === 'leaf'
-                          ? 'flex h-9 w-9 items-center justify-center rounded-xl bg-leaf-50 text-leaf-dark'
-                          : 'flex h-9 w-9 items-center justify-center rounded-xl bg-brand-50 text-brand'
-                      }
-                    >
-                      <Icon className="h-4.5 w-4.5" />
-                    </span>
-                    <h3 className="mt-3 text-sm sm:text-base font-bold text-ink">{title}</h3>
-                    <p className="mt-1 text-xs sm:text-sm leading-relaxed text-body">{text}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          </Reveal>
 
-          <div className="mt-6 pt-2">
-            <Link href="/about" className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:text-brand-dark">
-              More about HCP <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
+          <Stagger className="grid gap-x-8 sm:grid-cols-2">
+            {PILLARS.map(({ icon: Icon, title, text }, i) => (
+              <StaggerItem key={title} className="group flex gap-4 border-t border-line py-5">
+                <span
+                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110 ${ICON_TONES[i % 2]}`}
+                >
+                  <Icon className="h-5 w-5" />
+                </span>
+                <div>
+                  <h3 className="text-base font-bold text-ink">{title}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-body">{text}</p>
+                </div>
+              </StaggerItem>
+            ))}
+          </Stagger>
+
+          <Link
+            href="/about"
+            className="group mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand hover:text-brand-dark"
+          >
+            More About HCP <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Link>
         </div>
       </div>
     </section>

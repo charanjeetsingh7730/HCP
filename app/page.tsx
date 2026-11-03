@@ -9,20 +9,23 @@ import { IndustriesPreview } from '@/components/home/IndustriesPreview';
 import { RegionalCoverage } from '@/components/home/RegionalCoverage';
 import { FaqPreview } from '@/components/home/FaqPreview';
 import { CtaBanner } from '@/components/home/CtaBanner';
+import { Reveal } from '@/components/ui/Reveal';
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <ManufacturerStrip />
       <CategoryGrid />
       <FeaturedProducts />
       <TrustSection />
       <ProcurementProcess />
+      <ManufacturerStrip />
       <IndustriesPreview />
       <RegionalCoverage />
       <FaqPreview />
-      <CtaBanner />
+      <Reveal from="scale">
+        <CtaBanner />
+      </Reveal>
     </>
   );
 }

@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { ShieldCheck, FlaskConical, Sparkles, HeartHandshake, Droplets, Layers, ArrowUpRight, ArrowRight } from 'lucide-react';
 import { PRODUCT_CATEGORIES, ProductCategory } from '@/data/categories';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { MoleculeDecor } from '@/components/ui/MoleculeDecor';
+import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
 
 export const categoryIconMap: Record<string, React.ElementType> = {
   ShieldCheck,
@@ -34,14 +36,14 @@ export function CategoryCard({ category, large }: { category: ProductCategory; l
         <Icon className="h-5 w-5" />
       </div>
       <span className="absolute right-5 top-5 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-navy shadow-soft">
-        {category.catalogCount} products
+        {category.catalogCount} Products
       </span>
 
       <div className="relative p-6">
         <h3 className="font-display text-xl font-bold leading-snug text-white sm:text-2xl">{category.shortName}</h3>
         <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-white/85">{category.description}</p>
         <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-light transition-colors group-hover:text-white">
-          Explore range <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          Explore Range <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
         </span>
       </div>
     </Link>
@@ -50,26 +52,31 @@ export function CategoryCard({ category, large }: { category: ProductCategory; l
 
 export function CategoryGrid() {
   return (
-    <section className="section bg-white">
+    <section className="section relative isolate overflow-hidden bg-white">
+      <div className="bg-dots mask-radial absolute inset-x-0 top-0 -z-10 h-[28rem] opacity-70" aria-hidden="true" />
+      <div className="animate-aurora absolute -right-40 top-10 -z-10 h-80 w-80 rounded-full bg-brand-light/10 blur-3xl" aria-hidden="true" />
+      <MoleculeDecor className="absolute -right-8 top-8 -z-10 hidden h-44 w-44 animate-[spin_120s_linear_infinite] md:block" />
       <div className="container-x">
+        <Reveal>
         <SectionHeading
-          eyebrow="Product categories"
-          title="Raw materials for every formulation"
+          eyebrow="Product Categories"
+          title="Raw Materials for Every Formulation"
           description="From pharmacopoeial excipients and iodine compounds to surfactants and bulk alkalis — grouped the way procurement teams buy."
           action={
             <Link href="/products" className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:text-brand-dark">
-              View all products <ArrowRight className="h-4 w-4" />
+              View All Products <ArrowRight className="h-4 w-4" />
             </Link>
           }
         />
+        </Reveal>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <Stagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {PRODUCT_CATEGORIES.map((cat, i) => (
-            <div key={cat.id} className={i === 0 || i === 3 ? 'lg:col-span-2' : ''}>
+            <StaggerItem key={cat.id} className={i === 0 || i === 3 ? 'lg:col-span-2' : ''}>
               <CategoryCard category={cat} large={i === 0 || i === 3} />
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </div>
     </section>
   );

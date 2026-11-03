@@ -34,13 +34,13 @@ export function SectionHeading({
         <h2
           className={clsx(
             'mt-3 text-3xl font-bold leading-tight sm:text-4xl',
-            isDark ? 'text-white' : 'text-ink'
+            isDark ? 'text-white [text-shadow:0_2px_18px_rgba(1,23,51,0.55)]' : 'text-ink'
           )}
         >
           {title}
         </h2>
         {description && (
-          <p className={clsx('mt-4 text-base leading-relaxed', isDark ? 'text-white/70' : 'text-body')}>
+          <p className={clsx('mt-4 text-base leading-relaxed', isDark ? 'text-white/90' : 'text-body')}>
             {description}
           </p>
         )}

@@ -122,7 +122,7 @@ export function Navbar() {
           scrolled ? 'border-line shadow-card' : 'border-transparent'
         )}
       >
-        <div className="container-x flex h-[72px] items-center justify-between gap-4 lg:h-20">
+        <div className="container-x flex h-[72px] items-center justify-between gap-2 min-[360px]:gap-4 lg:h-20">
           <Link href="/" className="shrink-0 rounded-lg" aria-label={`${HCP_COMPANY.legalName} — Home`}>
             <Image
               src="/assets/logo/logo.svg"
@@ -130,7 +130,7 @@ export function Navbar() {
               width={2456}
               height={550}
               priority
-              className="h-10 w-auto sm:h-11 lg:h-12"
+              className="h-8 w-auto min-[360px]:h-10 sm:h-11 lg:h-12"
             />
           </Link>
 

@@ -1,104 +1,135 @@
 import React from 'react';
 import Link from 'next/link';
-import { Factory, ArrowRight, ArrowUpRight, CheckCircle2 } from 'lucide-react';
+import { Factory, ArrowRight, ArrowUpRight, CheckCircle2, ShieldCheck } from 'lucide-react';
 import { MANUFACTURERS } from '@/data/manufacturers';
+import { PRODUCTS } from '@/data/products';
+import { buttonStyles } from '@/components/ui/button-styles';
+import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
 
-// 6 premier flagship manufacturers — keeping the homepage trust strip focused, sleek & symmetric
+// 6 premier flagship manufacturers — keeping the homepage trust section focused
 const FEATURED_SLUGS = [
-  'godrej',        // Glycerin IP/USP, SLS, SLES
-  'savita',        // Liquid Paraffins IP, White Oils
-  'proto-chemical',// Pharma Iodine, Potassium Iodide IP
-  'indo-borex',    // Boric Acid IP
-  'manali',        // Propylene Glycol IP/USP
-  'sukhjit',       // Starch IP, Sorbitol 70%
+  'godrej', // Glycerin IP/USP, SLS, SLES
+  'savita', // Liquid Paraffins IP, White Oils
+  'proto-chemical', // Pharma Iodine, Potassium Iodide IP
+  'indo-borex', // Boric Acid IP
+  'manali', // Propylene Glycol IP/USP
+  'sukhjit', // Starch IP, Sorbitol 70%
 ];
 
 const SPECIALTY_MAP: Record<string, string> = {
-  'godrej': 'Glycerin IP & Surfactants',
-  'savita': 'Liquid Paraffins IP',
+  godrej: 'Glycerin IP & Surfactants',
+  savita: 'Liquid Paraffins IP',
   'proto-chemical': 'Pharma Iodine & Iodates',
   'indo-borex': 'Boric Acid IP',
-  'manali': 'Propylene Glycol IP/USP',
-  'sukhjit': 'Starch IP & Sorbitol',
+  manali: 'Propylene Glycol IP/USP',
+  sukhjit: 'Starch IP & Sorbitol',
 };
 
+// Alternating brand / leaf monogram tiles
+const MONOGRAM_TONES = ['from-brand to-brand-light', 'from-leaf-dark to-leaf'];
+
+const initials = (name: string) =>
+  name
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join('')
+    .toUpperCase();
+
 export function ManufacturerStrip() {
-  const featured = FEATURED_SLUGS.map((slug) => {
-    const found = MANUFACTURERS.find((m) => m.slug === slug);
-    return {
-      ...found!,
-      specialty: SPECIALTY_MAP[slug] || 'Pharma & Industrial',
-    };
-  }).filter(Boolean);
+  const featured = FEATURED_SLUGS.map((slug) => MANUFACTURERS.find((m) => m.slug === slug))
+    .filter((m): m is (typeof MANUFACTURERS)[number] => Boolean(m))
+    .map((m) => ({ ...m, specialty: SPECIALTY_MAP[m.slug] || 'Pharma & Industrial' }));
+
+  const stats = [
+    { value: MANUFACTURERS.length, label: 'Manufacturers' },
+    { value: PRODUCTS.length, label: 'Products' },
+    { value: '100%', label: 'Original Seals' },
+  ];
 
   return (
-    <section className="border-y border-line/80 bg-mist/60 py-7 sm:py-9" aria-label="Manufacturer sources">
-      <div className="container-x">
-        {/* Header Row: Title & Link */}
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-wrap items-center gap-2.5">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-brand/20 bg-white px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand shadow-soft">
-              <Factory className="h-3.5 w-3.5 text-brand" />
-              Manufacturer Sources
-            </span>
-            <span className="text-xs sm:text-sm text-body">
-              Procuring directly from India’s established producers with batch COA.
-            </span>
-          </div>
+    <section className="section relative isolate overflow-hidden bg-brand-soft" aria-label="Manufacturer sources">
+      {/* Soft brand wash between the dark "How It Works" band and the white industries section */}
+      <div className="absolute -right-32 -top-20 -z-10 h-96 w-96 rounded-full bg-brand-light/20 blur-3xl" aria-hidden="true" />
+      <div className="absolute -bottom-32 -left-32 -z-10 h-96 w-96 rounded-full bg-leaf/15 blur-3xl" aria-hidden="true" />
+      <div className="absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-b from-transparent to-white" aria-hidden="true" />
 
-          <Link
-            href="/manufacturers"
-            className="group inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-brand transition-colors hover:text-brand-dark shrink-0"
-          >
-            All 15 Manufacturers
-            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-          </Link>
-        </div>
-
-        {/* 6 Symmetrical Cards: 6-cols desktop, 3-cols tablet, 2-cols mobile */}
-        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6 sm:gap-3.5">
-          {featured.map((m) => (
-            <Link
-              key={m.id}
-              href={`/manufacturers/${m.slug}`}
-              className="group flex flex-col justify-between rounded-xl border border-line bg-white p-3.5 shadow-soft transition-all duration-200 hover:-translate-y-1 hover:border-brand-200 hover:shadow-card"
-            >
-              <div className="flex items-center justify-between gap-2">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand-50 font-display text-xs font-bold text-brand ring-1 ring-brand/15 transition-colors group-hover:bg-brand group-hover:text-white">
-                  {m.name.charAt(0)}
-                </span>
-                <span className="rounded bg-leaf-50 px-1.5 py-0.5 text-[10px] font-semibold text-leaf-dark">
-                  COA Verified
-                </span>
-              </div>
-
-              <div className="mt-2.5 min-w-0">
-                <h3 className="truncate font-display text-sm font-bold text-ink transition-colors group-hover:text-brand">
-                  {m.name}
-                </h3>
-                <p className="mt-0.5 truncate text-[11px] text-muted">
-                  {m.specialty}
-                </p>
-              </div>
-
-              <div className="mt-2.5 flex items-center justify-between border-t border-line/60 pt-1.5 text-[10px] text-muted">
-                <span>{m.productCount} {m.productCount === 1 ? 'material' : 'materials'}</span>
-                <ArrowUpRight className="h-3 w-3 text-brand opacity-0 transition-all -translate-x-0.5 group-hover:translate-x-0 group-hover:opacity-100" />
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        {/* Micro Trust Indicators */}
-        <div className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1.5 text-[11px] sm:text-xs text-muted">
-          <span className="inline-flex items-center gap-1.5">
-            <CheckCircle2 className="h-3.5 w-3.5 text-leaf shrink-0" />
-            100% original manufacturer seals
+      <div className="container-x grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
+        {/* Intro */}
+        <Reveal from="left" className="lg:col-span-4">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-brand/20 bg-white px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand shadow-soft">
+            <Factory className="h-3.5 w-3.5" />
+            Manufacturer Sources
           </span>
-          <span className="hidden sm:inline text-line">•</span>
-          <span>Manufacturer batch COA with quotation</span>
-          <span className="hidden sm:inline text-line">•</span>
-          <span>Direct dispatch to Baddi, Derabassi, Panchkula &amp; North India</span>
+          <h2 className="mt-4 text-3xl font-bold leading-tight text-ink sm:text-4xl">
+            Sourced Direct From India&apos;s <span className="text-gradient">Trusted Producers</span>
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-body">
+            Every product carries its documented make and ships in the manufacturer&apos;s original sealed packing, with batch COA.
+          </p>
+
+          <dl className="mt-6 grid grid-cols-3 gap-3">
+            {stats.map((s) => (
+              <div key={s.label} className="rounded-2xl border border-line bg-white p-3 text-center shadow-soft">
+                <dd className="font-display text-xl font-extrabold text-navy sm:text-2xl">{s.value}</dd>
+                <dt className="mt-0.5 text-[11px] text-muted sm:text-xs">{s.label}</dt>
+              </div>
+            ))}
+          </dl>
+
+          <Link href="/manufacturers" className={buttonStyles('primary', 'md', 'mt-6 w-full sm:w-auto')}>
+            All {MANUFACTURERS.length} Manufacturers <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+        </Reveal>
+
+        {/* Featured manufacturer cards */}
+        <div className="lg:col-span-8">
+          <Stagger className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 md:grid-cols-3">
+            {featured.map((m, i) => (
+              <StaggerItem key={m.id}>
+                <Link
+                  href={`/manufacturers/${m.slug}`}
+                  className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white p-5 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-lift"
+                >
+                  <span
+                    className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-brand-50 transition-transform duration-500 group-hover:scale-150"
+                    aria-hidden="true"
+                  />
+                  <div className="relative flex items-start justify-between gap-2">
+                    <span
+                      className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br font-display text-base font-extrabold text-white shadow-brand ${
+                        MONOGRAM_TONES[i % 2]
+                      }`}
+                    >
+                      {initials(m.name)}
+                    </span>
+                    <ArrowUpRight className="h-5 w-5 text-brand opacity-0 transition-all group-hover:opacity-100" />
+                  </div>
+                  <h3 className="relative mt-4 font-display text-lg font-bold text-ink transition-colors group-hover:text-brand">
+                    {m.name}
+                  </h3>
+                  <p className="relative mt-0.5 text-sm text-body">{m.specialty}</p>
+                  <div className="relative mt-4 flex items-center justify-between border-t border-line pt-3 text-xs">
+                    <span className="font-semibold text-muted">
+                      {m.productCount} {m.productCount === 1 ? 'Material' : 'Materials'}
+                    </span>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-leaf-50 px-2 py-0.5 font-semibold text-leaf-dark">
+                      <ShieldCheck className="h-3 w-3" /> COA Verified
+                    </span>
+                  </div>
+                </Link>
+              </StaggerItem>
+            ))}
+          </Stagger>
+
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-body lg:justify-start">
+            {['100% Original Manufacturer Seals', 'Batch COA with Quotation', 'Dispatch to Baddi, Derabassi & North India'].map((t) => (
+              <span key={t} className="inline-flex items-center gap-1.5">
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-leaf" />
+                {t}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </section>
