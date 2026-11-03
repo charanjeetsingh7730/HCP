@@ -2,6 +2,12 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
+// On Vercel CI/CD, skip local dist packaging (Vercel natively deploys Next.js)
+if (process.env.VERCEL) {
+  console.log('✓ Building on Vercel: native deployment active, skipping local dist packaging.');
+  process.exit(0);
+}
+
 function copyDirSync(src, dest) {
   if (!fs.existsSync(src)) return;
   fs.mkdirSync(dest, { recursive: true });
