@@ -218,18 +218,18 @@ export function Navbar() {
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
-              className="flex h-10 items-center gap-2 rounded-xl border border-line px-3 text-sm text-muted transition-colors hover:border-brand hover:text-brand"
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-line text-ink transition-colors hover:border-brand hover:text-brand hover:bg-mist/60"
               aria-label="Search products"
+              title="Search products (Ctrl+K)"
             >
-              <Search className="h-4 w-4" />
-              <span className="hidden xl:inline">Search</span>
-              <kbd className="hidden rounded border border-line bg-mist px-1.5 font-mono text-[10px] text-muted xl:inline">Ctrl K</kbd>
+              <Search className="h-[18px] w-[18px]" />
             </button>
 
             <Link
               href="/cart"
-              className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-line text-ink transition-colors hover:border-brand hover:text-brand"
+              className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-line text-ink transition-colors hover:border-brand hover:text-brand hover:bg-mist/60"
               aria-label={`Enquiry cart, ${count} ${count === 1 ? 'item' : 'items'}`}
+              title="View Cart"
             >
               <ShoppingCart className="h-[18px] w-[18px]" />
               {count > 0 && (

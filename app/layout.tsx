@@ -6,6 +6,7 @@ import { Footer } from '@/components/layout/Footer';
 import { CartProvider } from '@/components/cart/CartContext';
 import { ToastProvider } from '@/components/ui/Toast';
 import { CartTray } from '@/components/cart/CartTray';
+import { ScrollToTop } from '@/components/ui/ScrollToTop';
 import { HCP_COMPANY } from '@/data/company';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
@@ -78,6 +79,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             </main>
             <Footer />
             <CartTray />
+            <ScrollToTop />
           </CartProvider>
         </ToastProvider>
       </body>

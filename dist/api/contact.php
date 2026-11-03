@@ -66,3 +66,4 @@ echo json_encode([
     'emailed' => $sent,
     'message' => 'Your message has been received. Our team will contact you shortly.'
 ]);
+

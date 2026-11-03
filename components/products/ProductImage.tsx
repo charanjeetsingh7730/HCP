@@ -4,50 +4,6 @@ import { clsx } from 'clsx';
 import { ProductRecord } from '@/data/products';
 import { getFormula } from '@/lib/products';
 
-// Catalog photos that already fill their frame (drums in plants, sacks, lab shots) — shown edge to edge.
-const SCENE_IMAGES = new Set([
-  'aos-38-drum',
-  'glycerin-dropper',
-  'glycerin-ip-drum',
-  'labsa-90-drum',
-  'labsa-96-drum',
-  'sles-28-drum',
-  'sles-70-drum',
-  'sles-liquid',
-  'sles-paste',
-  'sls-liquid',
-  'sorbitol-70-drum',
-  'magnesium-sulphate',
-  'boric-acid-bag',
-  'heavy-liquid-paraffin',
-  'light-liquid-paraffin',
-]);
-
-// Source thumbnails under ~300px wide; kept small on a specimen tray so they stay crisp.
-const LOW_RES_IMAGES = new Set([
-  'castor-oil',
-  'copper-sulphate',
-  'iodine-bottle',
-  'linseed-oil',
-  'maize-starch',
-  'petroleum-jelly',
-  'potassium-iodate',
-  'potassium-iodide',
-  'povidone-iodine',
-  'rosin-colophony',
-  'sls-powder',
-  'starch-ip',
-  'talcum-powder',
-  'turpentine-oil',
-  'zinc-oxide-ip',
-  'zinc-oxide-tech',
-  'zinc-sulphate',
-]);
-
-function imageKey(src: string) {
-  return src.split('/').pop()?.replace(/\.\w+$/, '') ?? '';
-}
-
 interface ProductImageProps {
   product: ProductRecord;
   size?: 'thumb' | 'card' | 'detail';
@@ -56,78 +12,61 @@ interface ProductImageProps {
 }
 
 export function ProductImage({ product, size = 'card', priority, className }: ProductImageProps) {
-  const sizes = size === 'detail' ? '(min-width: 1024px) 40vw, 100vw' : size === 'thumb' ? '96px' : '(min-width: 1024px) 25vw, 50vw';
+  const sizes =
+    size === 'detail'
+      ? '(min-width: 1024px) 45vw, 100vw'
+      : size === 'thumb'
+      ? '96px'
+      : '(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 100vw';
 
   if (!product.image) {
     const formula = getFormula(product);
     return (
       <div
         className={clsx(
-          'bg-hex relative flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-brand-50 via-white to-leaf-50 text-center',
+          'relative flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-brand-50/60 via-white to-leaf-50/60 text-center select-none',
           className
         )}
         role="img"
         aria-label={`${product.name}${formula ? ` (${formula})` : ''}`}
       >
-        <span
-          className={clsx(
-            'font-display font-bold tracking-tight text-navy-700',
-            size === 'thumb' ? 'text-sm' : size === 'detail' ? 'text-5xl sm:text-6xl' : 'text-3xl'
-          )}
-        >
-          {formula ?? product.name.split(' ')[0]}
-        </span>
-        {size !== 'thumb' && (
-          <span className="mt-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand">
-            {product.name}
+        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-soft ring-1 ring-line">
+          <span className="font-display text-xl font-bold text-navy-800">
+            {formula ? formula.slice(0, 4) : product.catalogNumber}
           </span>
-        )}
+        </div>
+        <span className="mt-2.5 max-w-[85%] text-xs font-bold text-ink line-clamp-1">
+          {product.name}
+        </span>
+        <span className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-brand">
+          {product.grade}
+        </span>
       </div>
     );
   }
 
-  const key = imageKey(product.image);
-
-  if (SCENE_IMAGES.has(key)) {
-    return (
-      <div className={clsx('relative h-full w-full overflow-hidden bg-mist', className)}>
-        <Image
-          src={product.image}
-          alt={product.name}
-          fill
-          priority={priority}
-          sizes={sizes}
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-      </div>
-    );
-  }
-
-  const lowRes = LOW_RES_IMAGES.has(key);
+  // Consistent, clean studio presentation across ALL products with object-fit: contain
+  // Prevents image clipping, blur, or awkward cropping.
   return (
     <div
       className={clsx(
-        'relative flex h-full w-full items-center justify-center overflow-hidden bg-gradient-to-b from-white to-[#EEF2F6]',
+        'relative flex h-full w-full items-center justify-center overflow-hidden bg-white',
+        size === 'detail'
+          ? 'p-6 sm:p-10 bg-gradient-to-b from-slate-50/60 via-white to-slate-50/40'
+          : size === 'thumb'
+          ? 'p-1.5 bg-slate-50/70'
+          : 'p-4 sm:p-5 bg-gradient-to-b from-slate-50/50 via-white to-slate-50/30',
         className
       )}
     >
-      <div
-        className={clsx(
-          'relative transition-transform duration-500 group-hover:scale-105',
-          lowRes
-            ? size === 'detail'
-              ? 'h-[62%] w-[62%] max-w-[300px]'
-              : 'h-[72%] w-[72%] max-w-[220px]'
-            : 'h-[86%] w-[86%]'
-        )}
-      >
+      <div className="relative h-full w-full flex items-center justify-center transition-transform duration-300 ease-out group-hover:scale-105">
         <Image
           src={product.image}
           alt={product.name}
           fill
           priority={priority}
           sizes={sizes}
-          className="object-contain mix-blend-multiply"
+          className="object-contain drop-shadow-[0_4px_12px_rgba(2,39,84,0.06)] select-none"
         />
       </div>
     </div>

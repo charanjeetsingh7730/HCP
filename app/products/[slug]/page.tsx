@@ -106,9 +106,9 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
           {/* Image */}
           <div className="lg:col-span-5">
             <div className="lg:sticky lg:top-28">
-              <div className="group relative aspect-square overflow-hidden rounded-3xl border border-line shadow-card">
+              <div className="group relative aspect-square overflow-hidden rounded-3xl border border-line bg-white shadow-card">
                 <ProductImage product={product} size="detail" priority />
-                <span className="absolute left-4 top-4 rounded-lg bg-white/90 px-2.5 py-1 text-xs font-semibold text-navy shadow-soft">
+                <span className="absolute left-4 top-4 z-10 rounded-lg bg-white/95 px-2.5 py-1 text-xs font-semibold text-navy shadow-soft ring-1 ring-black/5">
                   Catalogue #{product.catalogNumber}
                 </span>
               </div>

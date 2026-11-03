@@ -65,7 +65,7 @@ export const PRODUCTS: ProductRecord[] = [
     ],
     supplyNotes:
       'Confirm assay, impurity limits, packaging and COA. Sourced from Proto Chemical for pharmaceutical formulations.',
-    image: '/assets/products/potassium-iodide.png',
+    image: '/assets/products/potassium-iodide.jpg',
     packagingType: 'Pharmaceutical Grade Drum / Container',
     sourceReference: 'HCP_Product_Catalog-2.pdf (Page 7), HCP_Product_Profile-1.docx (#3)',
     seoTitle: 'Potassium Iodide IP Procurement | Proto Chemical Supply | HCP',
@@ -91,7 +91,7 @@ export const PRODUCTS: ProductRecord[] = [
     ],
     supplyNotes:
       'Handle and store according to supplier SDS and applicable regulations. Confirm grade and intended-use specifications.',
-    image: '/assets/products/iodine-bottle.png',
+    image: '/assets/products/iodine-bottle.jpg',
     packagingType: 'Amber Pharmaceutical Glass / HDPE Bottle',
     sourceReference: 'HCP_Product_Catalog-2.pdf (Page 8), HCP_Product_Profile-1.docx (#4)',
     seoTitle: 'Iodine IP Active Pharmaceutical Ingredient | Proto Chemical | HCP',
@@ -117,7 +117,7 @@ export const PRODUCTS: ProductRecord[] = [
     ],
     supplyNotes:
       'Antiseptic formulations for skin cleansing and wound-care products. Confirm concentration/form, IP compliance and COA.',
-    image: '/assets/products/povidone-iodine.png',
+    image: '/assets/products/povidone-iodine.jpg',
     packagingType: 'Sealed Pharmaceutical Container',
     sourceReference: 'HCP_Product_Catalog-2.pdf (Page 9), HCP_Product_Profile-1.docx (#5)',
     seoTitle: 'Povidone Iodine IP Antiseptic Grade | Proto Chemical | HCP',
@@ -143,7 +143,7 @@ export const PRODUCTS: ProductRecord[] = [
     ],
     supplyNotes:
       'Confirm grade and intended-use requirements. Highly stable oxidizing iodine source.',
-    image: '/assets/products/potassium-iodate.png',
+    image: '/assets/products/potassium-iodide.jpg',
     packagingType: 'Pharmaceutical Container',
     sourceReference: 'HCP_Product_Catalog-2.pdf (Page 10), HCP_Product_Profile-1.docx (#6)',
     seoTitle: 'Potassium Iodate IP Supply | Proto Chemical | HCP Chemical Procurement',
@@ -195,7 +195,7 @@ export const PRODUCTS: ProductRecord[] = [
     ],
     supplyNotes:
       'IP/BP grade availability and compliance to be confirmed per batch. Colourless, odourless, tasteless liquid.',
-    image: '/assets/products/light-liquid-paraffin.png',
+    image: '/assets/products/light-liquid-paraffin.jpg',
     packagingType: '210L Steel / HDPE Drum',
     sourceReference: 'HCP_Product_Catalog-2.pdf (Page 12), HCP_Product_Profile-1.docx (#8)',
     seoTitle: 'Light Liquid Paraffin IP/BP | Savita & Gandhar Oils | HCP',
@@ -221,7 +221,7 @@ export const PRODUCTS: ProductRecord[] = [
     ],
     supplyNotes:
       'Confirm viscosity and pharmacopoeial grade per batch. Sourced from Savita, Gandhar, or Asian.',
-    image: '/assets/products/heavy-liquid-paraffin.png',
+    image: '/assets/products/heavy-liquid-paraffin.jpg',
     packagingType: '210L Steel Drum',
     sourceReference: 'HCP_Product_Catalog-2.pdf (Page 13), HCP_Product_Profile-1.docx (#9)',
     seoTitle: 'Heavy Liquid Paraffin IP/BP Supply | Savita & Gandhar | HCP',
@@ -247,7 +247,7 @@ export const PRODUCTS: ProductRecord[] = [
     ],
     supplyNotes:
       'Confirm applicable IP/BP/USP specification, colour, drop point, and COA. Odourless, homogeneous paste.',
-    image: '/assets/products/petroleum-jelly.png',
+    image: '/assets/products/petroleum-jelly.jpg',
     packagingType: '170-190 Kg Steel / Fiber Drum',
     sourceReference: 'HCP_Product_Catalog-2.pdf (Page 14), HCP_Product_Profile-1.docx (#10)',
     seoTitle: 'Petroleum Jelly IP/BP/USP Ointment Base | Savita & Asian | HCP',
@@ -274,7 +274,7 @@ export const PRODUCTS: ProductRecord[] = [
     ],
     supplyNotes:
       'Pure refined oleochemical glycerin IP/USP. Confirm assay, moisture, and COA. Supplied in original Godrej factory drums.',
-    image: '/assets/products/glycerin-dropper.png',
+    image: '/assets/products/glycerin-dropper.jpg',
     packagingType: '250 Kg Epoxy-Coated Steel Drum (Godrej)',
     sourceReference: 'HCP_Product_Catalog-2.pdf (Page 15), HCP_Product_Profile-1.docx (#11)',
     seoTitle: 'Godrej Glycerin IP/USP High Purity Procurement | HCP',
@@ -381,7 +381,7 @@ export const PRODUCTS: ProductRecord[] = [
     ],
     supplyNotes:
       'Technical grade; not a substitute for pharmaceutical or cosmetic grade without qualification.',
-    image: '/assets/products/zinc-oxide-tech.png',
+    image: '/assets/products/zinc-oxide-bag.png',
     packagingType: '25-50 Kg HDPE / Paper Bag',
     sourceReference: 'HCP_Product_Catalog-2.pdf (Page 19), HCP_Product_Profile-1.docx (#15)',
     seoTitle: 'Upper India Zinc Oxide Technical Grade | Rubber & Paints | HCP',
@@ -407,7 +407,7 @@ export const PRODUCTS: ProductRecord[] = [
     ],
     supplyNotes:
       'Pharmacopoeial grade IP complying with rigorous heavy metal limits and assay requirements. Sourced from Rubamin.',
-    image: '/assets/products/zinc-oxide-ip.png',
+    image: '/assets/products/zinc-oxide-bag.png',
     packagingType: '25 Kg Lined Paper / Poly Bag',
     sourceReference: 'HCP_Product_Catalog-2.pdf (Page 20)',
     seoTitle: 'Rubamin Zinc Oxide IP Pharmacopoeial Grade | HCP Procurement',
@@ -485,7 +485,7 @@ export const PRODUCTS: ProductRecord[] = [
     ],
     supplyNotes:
       'Commercial manufacturer to be reconfirmed upon specific inquiry based on required crystal size and assay.',
-    image: '/assets/products/copper-sulphate.png',
+    image: '/assets/products/copper-sulphate.jpg',
     packagingType: '50 Kg Lined HDPE Bag',
     sourceReference: 'HCP_Product_Catalog-2.pdf (Page 23)',
     seoTitle: 'Copper Sulphate Technical & AR Grade | HCP Chemical Procurement',
@@ -511,7 +511,7 @@ export const PRODUCTS: ProductRecord[] = [
     ],
     supplyNotes:
       'Available in heptahydrate (21% Zn) or monohydrate (33% Zn) based on buyer requirement.',
-    image: '/assets/products/zinc-sulphate.png',
+    image: '/assets/products/zinc-sulphate.jpg',
     packagingType: '25-50 Kg HDPE Bag',
     sourceReference: 'HCP_Product_Catalog-2.pdf (Page 24)',
     seoTitle: 'Zinc Sulphate Technical & Fertilizer Grade | HCP Sourcing',
@@ -537,7 +537,7 @@ export const PRODUCTS: ProductRecord[] = [
     ],
     supplyNotes:
       'Technical solvent grade. Manufacturer options confirmed based on distillation profile and batch volume.',
-    image: '/assets/products/turpentine-oil.png',
+    image: '/assets/products/turpentine-oil.jpg',
     packagingType: '200L Industrial Steel Drum',
     sourceReference: 'HCP_Product_Catalog-2.pdf (Page 25)',
     seoTitle: 'Turpentine Oil Technical Grade Solvent | HCP Supply',
@@ -829,7 +829,7 @@ export const PRODUCTS: ProductRecord[] = [
     ],
     supplyNotes:
       'High purity micronized purified talc conforming to Indian Pharmacopoeia standards. Supplied by Neelkanth Jodhpur.',
-    image: '/assets/products/talcum-powder.png',
+    image: '/assets/products/talcum-powder.jpg',
     packagingType: '25-50 Kg Lined Bag',
     sourceReference: 'HCP_Product_Catalog-2.pdf (Page 36)',
     seoTitle: 'Neelkanth Jodhpur Talcum Powder IP 98% | HCP Sourcing',
@@ -907,7 +907,7 @@ export const PRODUCTS: ProductRecord[] = [
     ],
     supplyNotes:
       'Grade (Commercial, First Special, or Pharma BSS) and manufacturer to be confirmed upon enquiry.',
-    image: '/assets/products/castor-oil.png',
+    image: '/assets/products/castor-oil.jpg',
     packagingType: '200 Kg Steel Drum',
     sourceReference: 'HCP_Product_Catalog-2.pdf (Page 39)',
     seoTitle: 'Castor Oil Commercial & Industrial Procurement | HCP',
@@ -933,7 +933,7 @@ export const PRODUCTS: ProductRecord[] = [
     ],
     supplyNotes:
       'Available in Raw, Double Boiled, or Refined grades based on customer process requirements.',
-    image: '/assets/products/linseed-oil.png',
+    image: '/assets/products/linseed-oil.jpg',
     packagingType: '200 Kg Steel Drum',
     sourceReference: 'HCP_Product_Catalog-2.pdf (Page 40)',
     seoTitle: 'Linseed Oil Industrial Drying Oil | Paints & Wood Finishing | HCP',
@@ -945,6 +945,7 @@ export const PRODUCTS: ProductRecord[] = [
     catalogNumber: '36',
     slug: 'bleaching-powder',
     name: 'Bleaching Powder',
+    image: '/assets/products/bleaching-powder.png',
     aliases: ['Chlorinated Lime', 'Calcium Hypochlorite Compound', 'Stable Bleaching Powder'],
     categoryIds: ['industrial-salts'],
     grade: '(To be confirmed)',
@@ -970,6 +971,7 @@ export const PRODUCTS: ProductRecord[] = [
     catalogNumber: '37',
     slug: 'caustic-soda',
     name: 'Caustic Soda',
+    image: '/assets/products/caustic-soda.png',
     aliases: ['Sodium Hydroxide', 'NaOH', 'Caustic Soda Flakes / Lye'],
     categoryIds: ['starches-polymers', 'industrial-salts'],
     grade: '(To be confirmed)',
@@ -995,6 +997,7 @@ export const PRODUCTS: ProductRecord[] = [
     catalogNumber: '38',
     slug: 'sodium-bicarbonate',
     name: 'Sodium Bicarbonate',
+    image: '/assets/products/sodium-bicarbonate.png',
     aliases: ['Baking Soda', 'NaHCO3', 'Sodium Hydrogen Carbonate'],
     categoryIds: ['industrial-salts', 'pharma-iodine'],
     grade: '(To be confirmed)',
@@ -1020,6 +1023,7 @@ export const PRODUCTS: ProductRecord[] = [
     catalogNumber: '39',
     slug: 'soda-ash',
     name: 'Soda Ash',
+    image: '/assets/products/soda-ash.png',
     aliases: ['Sodium Carbonate', 'Na2CO3', 'Soda Ash Light / Dense'],
     categoryIds: ['industrial-salts', 'starches-polymers'],
     grade: '(To be confirmed)',

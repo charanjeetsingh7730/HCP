@@ -1,52 +1,90 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'motion/react';
-import { ShoppingCart, ArrowRight } from 'lucide-react';
+import { ShoppingCart, ArrowRight, X } from 'lucide-react';
 import { useCart } from './CartContext';
 
 const HIDDEN_ON = ['/cart', '/request-quote', '/thank-you'];
 
-/** Floating mini-cart shortcut shown while browsing once the cart has items. */
+/** 
+ * Compact, dismissible floating mini-cart shortcut.
+ * Placed to the left of the Scroll-to-Top button on desktop, 
+ * and above it on mobile, leaving the bottom-right corner dedicated to Scroll-to-Top.
+ */
 export function CartTray() {
   const pathname = usePathname();
-  const { items, count, ready } = useCart();
-  const visible = ready && count > 0 && !HIDDEN_ON.includes(pathname);
+  const { count, ready } = useCart();
+  const [dismissed, setDismissed] = useState(false);
+  const [prevCount, setPrevCount] = useState(count);
+
+  // If user adds a new item to the cart, re-show the tray
+  useEffect(() => {
+    if (count > prevCount) {
+      setDismissed(false);
+    }
+    setPrevCount(count);
+  }, [count, prevCount]);
+
+  const visible = ready && count > 0 && !dismissed && !HIDDEN_ON.includes(pathname);
 
   return (
     <AnimatePresence>
       {visible && (
         <motion.div
-          initial={{ y: 80, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 80, opacity: 0 }}
-          transition={{ type: 'spring', stiffness: 420, damping: 32 }}
-          className="fixed inset-x-3 bottom-3 z-40 sm:inset-x-auto sm:bottom-6 sm:right-6"
+          initial={{ y: 30, opacity: 0, scale: 0.9 }}
+          animate={{ y: 0, opacity: 1, scale: 1 }}
+          exit={{ y: 30, opacity: 0, scale: 0.9 }}
+          transition={{ type: 'spring', stiffness: 450, damping: 32 }}
+          className="fixed bottom-16 right-4 sm:bottom-6 sm:right-20 z-40 max-w-[calc(100vw-5rem)]"
         >
-          <Link
-            href="/cart"
-            className="group flex items-center gap-3 rounded-2xl bg-navy-900 p-2.5 pr-4 text-white shadow-modal ring-1 ring-white/10 transition-colors hover:bg-navy-800"
-          >
-            <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-gradient">
-              <ShoppingCart className="h-5 w-5" />
-              <span className="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-leaf px-1 text-[11px] font-bold ring-2 ring-navy-900">
-                {count}
+          <div className="flex items-center gap-2 rounded-full border border-white/15 bg-navy-950/95 py-1.5 pl-2 pr-1.5 text-white shadow-modal backdrop-blur-md ring-1 ring-black/20">
+            {/* Clickable Cart Link */}
+            <Link
+              href="/cart"
+              className="group flex items-center gap-2.5 min-w-0"
+              aria-label={`View cart with ${count} items`}
+            >
+              {/* Icon & Count Pill */}
+              <span className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-gradient text-white shadow-sm">
+                <ShoppingCart className="h-4 w-4" />
+                <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-leaf px-1 text-[10px] font-bold text-white ring-2 ring-navy-950">
+                  {count}
+                </span>
               </span>
-            </span>
-            <span className="min-w-0 flex-1">
-              <span className="block truncate text-sm font-semibold">
-                {count} {count === 1 ? 'product' : 'products'} in cart
-              </span>
-              <span className="block truncate text-xs text-white/70">
-                {items.map((i) => i.name).join(', ')}
-              </span>
-            </span>
-            <span className="flex shrink-0 items-center gap-1 text-sm font-semibold text-brand-light group-hover:text-white">
-              View Cart <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </span>
-          </Link>
+
+              {/* Compact Label */}
+              <div className="flex items-center gap-1.5 text-xs">
+                <span className="font-semibold text-white whitespace-nowrap">
+                  {count} {count === 1 ? 'item' : 'items'}
+                </span>
+                <span className="text-white/40">·</span>
+                <span className="inline-flex items-center gap-1 font-semibold text-brand-light transition-colors group-hover:text-white whitespace-nowrap">
+                  View <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                </span>
+              </div>
+            </Link>
+
+            {/* Separator */}
+            <span className="h-4 w-px bg-white/20" aria-hidden="true" />
+
+            {/* Close / Dismiss Button */}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setDismissed(true);
+              }}
+              className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-white/60 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+              aria-label="Dismiss cart popup"
+              title="Close"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

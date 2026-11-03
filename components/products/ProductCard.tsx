@@ -62,9 +62,9 @@ export function ProductCard({ product, viewMode = 'grid' }: ProductCardProps) {
 
   return (
     <article className="group card flex h-full flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-lift">
-      <Link href={href} className="relative block aspect-[4/3] overflow-hidden" aria-label={`View details for ${product.name}`}>
+      <Link href={href} className="relative block aspect-[4/3] overflow-hidden border-b border-line/60 bg-slate-50/30" aria-label={`View details for ${product.name}`}>
         <ProductImage product={product} />
-        <span className="absolute left-3 top-3 rounded-md bg-white/90 px-2 py-0.5 text-[11px] font-semibold text-navy shadow-soft backdrop-blur">
+        <span className="absolute left-3 top-3 z-10 rounded-md bg-white/95 px-2 py-0.5 text-[11px] font-semibold text-navy shadow-soft ring-1 ring-black/5">
           #{product.catalogNumber}
         </span>
       </Link>
