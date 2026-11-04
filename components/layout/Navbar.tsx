@@ -56,6 +56,7 @@ export function Navbar() {
   const [megaOpen, setMegaOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const megaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -70,9 +71,38 @@ export function Navbar() {
     setMegaOpen(false);
   }, [pathname]);
 
-  // Lock page scroll while the mobile drawer is open
+  // Close the mega menu on outside click/tap or Escape (needed when it was opened by click, touch or keyboard)
   useEffect(() => {
-    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    if (!megaOpen) return;
+    const onPointerDown = (e: PointerEvent) => {
+      if (megaRef.current && !megaRef.current.contains(e.target as Node)) setMegaOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMegaOpen(false);
+    };
+    document.addEventListener('pointerdown', onPointerDown);
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('pointerdown', onPointerDown);
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [megaOpen]);
+
+  // Close the mobile drawer with Escape
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [mobileOpen]);
+
+  // Lock page scroll while the mobile drawer is open
+  // (only touches the style while open, so it never clears a lock set by the search palette)
+  useEffect(() => {
+    if (!mobileOpen) return;
+    document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = '';
     };
@@ -137,7 +167,13 @@ export function Navbar() {
           <nav className="hidden items-center gap-1 lg:flex" aria-label="Main navigation">
             {NAV_LINKS.map((link) =>
               link.mega ? (
-                <div key={link.href} className="relative" onMouseEnter={openMega} onMouseLeave={scheduleCloseMega}>
+                <div
+                  key={link.href}
+                  ref={megaRef}
+                  className="relative"
+                  onMouseEnter={openMega}
+                  onMouseLeave={scheduleCloseMega}
+                >
                   <button
                     type="button"
                     onClick={() => setMegaOpen((v) => !v)}
@@ -169,6 +205,7 @@ export function Navbar() {
                                 <Link
                                   key={cat.id}
                                   href={`/categories/${cat.slug}`}
+                                  onClick={() => setMegaOpen(false)}
                                   className="group flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-mist"
                                 >
                                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand transition-colors group-hover:bg-brand group-hover:text-white">
@@ -189,7 +226,7 @@ export function Navbar() {
                                 Search all raw materials by name, grade or manufacturer.
                               </p>
                             </div>
-                            <Link href="/products" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-white hover:underline">
+                            <Link href="/products" onClick={() => setMegaOpen(false)} className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-white hover:underline">
                               Browse all products <ArrowRight className="h-4 w-4" />
                             </Link>
                           </div>

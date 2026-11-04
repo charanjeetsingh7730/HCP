@@ -82,6 +82,29 @@
     @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-3 py-1 text-xs font-medium text-body;
   }
 
+    /* Footer column heading with a small brand-gradient accent */
+  .footer-heading {
+    @apply relative pb-3 text-sm font-semibold text-white;
+  }
+  .footer-heading::after {
+    content: '';
+    @apply absolute bottom-0 left-0 h-[2px] w-8 rounded-full bg-gradient-to-r from-brand-light to-leaf;
+  }
+
+  /* Footer links: colour shift with a gradient underline that grows from the left */
+  .footer-link {
+    @apply relative inline-block transition-colors duration-200 hover:text-white;
+  }
+  .footer-link::after {
+    content: '';
+    @apply absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-gradient-to-r from-brand-light to-leaf transition-transform duration-300;
+  }
+  .footer-link:hover::after,
+  .footer-link:focus-visible::after {
+    @apply scale-x-100;
+  }
+
+
   .prose-legal h2 {
     @apply mt-8 text-lg font-bold text-ink first:mt-0;
   }
@@ -215,6 +238,21 @@
     66% {
       transform: translate3d(-5%, 5%, 0) scale(0.95);
     }
+  }
+
+  /* Footer: liquid surface along the top edge, sliding sideways forever */
+  @keyframes wave-slide {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .animate-wave-slide {
+    animation: wave-slide 16s linear infinite;
+    will-change: transform;
   }
 
   .animate-aurora {

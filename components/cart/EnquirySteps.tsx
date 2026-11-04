@@ -18,17 +18,17 @@ export function EnquirySteps({ current }: { current: 1 | 2 | 3 }) {
               className={clsx(
                 'flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold ring-1',
                 done && 'bg-leaf text-white ring-leaf',
-                active && 'bg-white text-navy ring-white',
-                !done && !active && 'bg-white/5 text-white/60 ring-white/20'
+                active && 'bg-brand text-white ring-brand shadow-brand',
+                !done && !active && 'bg-white/80 text-muted ring-line'
               )}
               aria-current={active ? 'step' : undefined}
             >
               {done ? <Check className="h-4 w-4" /> : step}
             </span>
-            <span className={clsx('hidden text-sm font-medium sm:inline', active ? 'text-white' : 'text-white/60')}>
+            <span className={clsx('hidden text-sm font-medium sm:inline', active ? 'font-semibold text-navy' : 'text-muted')}>
               {label}
             </span>
-            {step < STEPS.length && <span className="h-px w-6 bg-white/20 sm:w-10" aria-hidden="true" />}
+            {step < STEPS.length && <span className="h-px w-6 bg-line sm:w-10" aria-hidden="true" />}
           </li>
         );
       })}

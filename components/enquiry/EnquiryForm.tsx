@@ -15,6 +15,7 @@ import {
   Truck,
   Send,
   ShoppingCart,
+  ChevronDown,
   Lock,
 } from 'lucide-react';
 import {
@@ -90,10 +91,16 @@ function SectionTitle({ icon: Icon, step, title, text }: { icon: React.ElementTy
 export function EnquiryForm() {
   const router = useRouter();
   const params = useSearchParams();
-  const { items: cartItems, ready, addItem, removeItem, clearCart } = useCart();
+  const { items: cartItems, ready, addItem, removeItem, updateItem, clearCart } = useCart();
   const { success, error: toastError } = useToast();
   const [submitError, setSubmitError] = useState<string | null>(null);
   const initialised = useRef(false);
+  const errorRef = useRef<HTMLDivElement>(null);
+
+  // Bring the failure message into view (the submit button may be far below it, e.g. on mobile)
+  useEffect(() => {
+    if (submitError) errorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, [submitError]);
 
   const {
     register,
@@ -124,6 +131,29 @@ export function EnquiryForm() {
   });
 
   const { fields, append, remove } = useFieldArray({ control, name: 'items' });
+
+  // Rows added on this page get a product picker; rows that came from the cart do not.
+  const [pickerRows, setPickerRows] = useState<Set<string>>(new Set());
+  const pendingPicker = useRef(false);
+  useEffect(() => {
+    if (!pendingPicker.current || !fields.length) return;
+    pendingPicker.current = false;
+    const last = fields[fields.length - 1].id;
+    setPickerRows((prev) => new Set(prev).add(last));
+  }, [fields]);
+
+  // Keep quantity, unit and grade edits in sync with the cart, so "Back to cart" keeps them
+  useEffect(() => {
+    const sub = watch((value, { name }) => {
+      const m = name?.match(/^items\.(\d+)\.(quantity|unit|grade)$/);
+      if (!m) return;
+      const item = value.items?.[Number(m[1])];
+      if (!item?.productId || item.productId === CUSTOM_PRODUCT_ID) return;
+      const key = m[2] as 'quantity' | 'unit' | 'grade';
+      updateItem(item.productId, { [key]: item[key] });
+    });
+    return () => sub.unsubscribe();
+  }, [watch, updateItem]);
 
   // Seed the form once from the cart and any ?product= / ?coa= / ?industry= link parameters.
   useEffect(() => {
@@ -160,12 +190,12 @@ export function EnquiryForm() {
         addItem(p);
       }
     }
-    if (previous !== CUSTOM_PRODUCT_ID && previous !== productId) removeItem(previous);
+    if (previous && previous !== CUSTOM_PRODUCT_ID && previous !== productId) removeItem(previous);
   };
 
   const onRemove = (index: number) => {
     const id = getValues(`items.${index}.productId`);
-    if (id !== CUSTOM_PRODUCT_ID) removeItem(id);
+    if (id && id !== CUSTOM_PRODUCT_ID) removeItem(id);
     remove(index);
   };
 
@@ -182,13 +212,21 @@ export function EnquiryForm() {
 
       clearCart();
       success('Enquiry sent', `Reference ${json.referenceId}`);
-      const qs = new URLSearchParams({
-        ref: json.referenceId,
-        name: data.fullName,
-        count: String(data.items.length),
-      });
-      // Only promise a copy by email when the server actually emailed the enquiry
-      if (json.emailed) qs.set('email', data.businessEmail);
+      // Keep personal details out of the URL (history, logs, analytics): hand them over in sessionStorage
+      try {
+        sessionStorage.setItem(
+          'hcp_last_enquiry',
+          JSON.stringify({
+            ref: json.referenceId,
+            name: data.fullName,
+            // Only promise a copy by email when the server actually emailed the enquiry
+            email: json.emailed ? data.businessEmail : null,
+          })
+        );
+      } catch {
+        // storage unavailable: the thank-you page falls back to a generic message
+      }
+      const qs = new URLSearchParams({ ref: json.referenceId, count: String(data.items.length) });
       router.push(`/thank-you?${qs.toString()}`);
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Network error. Please try again.';
@@ -201,10 +239,10 @@ export function EnquiryForm() {
   const usedIds = new Set(itemsWatch?.map((i) => i.productId));
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="grid gap-8 lg:grid-cols-12">
-      <div className="space-y-6 lg:col-span-8">
+    <form onSubmit={handleSubmit(onSubmit)} noValidate className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+      <div className="min-w-0 space-y-6 lg:col-span-8">
         {submitError && (
-          <div role="alert" className="flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+          <div ref={errorRef} role="alert" className="flex scroll-mt-28 items-start gap-3 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
             <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
             <div>
               <p className="font-semibold">Your enquiry was not sent</p>
@@ -225,105 +263,98 @@ export function EnquiryForm() {
             icon={PackageCheck}
             step={1}
             title={`Products in this enquiry (${fields.length})`}
-            text="Confirm quantity, unit and grade for each product. Add anything else you need."
+            text="Check the quantity, unit and grade for each product. Add anything else you need."
           />
 
-          <div className="space-y-4">
+          <div className="divide-y divide-line overflow-hidden rounded-2xl border border-line bg-white">
             {fields.map((field, index) => {
               const current = itemsWatch?.[index];
               const isCustom = current?.productId === CUSTOM_PRODUCT_ID;
               const product = PRODUCTS.find((p) => p.id === current?.productId);
               const itemErrors = errors.items?.[index];
+              const showPicker = pickerRows.has(field.id) || !current?.productId;
               return (
-                <div
-                  key={field.id}
-                  className="overflow-hidden rounded-2xl border border-line bg-white shadow-soft transition-all duration-200 hover:border-brand-200 hover:shadow-card"
-                >
-                  {/* Product Header Banner with Image & Metadata */}
-                  <div className="flex flex-col gap-3.5 border-b border-line/60 bg-gradient-to-r from-mist/80 via-mist/30 to-white p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
-                    <div className="flex items-center gap-3.5 min-w-0">
-                      <div className="relative h-20 w-20 sm:h-22 sm:w-22 shrink-0 overflow-hidden rounded-xl border border-line/80 bg-white shadow-soft">
-                        {product ? (
-                          <ProductImage product={product} size="thumb" />
-                        ) : (
-                          <div className="flex h-full w-full items-center justify-center bg-mist text-brand">
-                            <PackageCheck className="h-8 w-8 text-brand/60" />
-                          </div>
-                        )}
-                      </div>
+                <div key={field.id} className="p-4 transition-colors hover:bg-mist/40 sm:p-5">
+                  {/* Product row: thumbnail, name, make, remove */}
+                  <div className="flex items-start gap-3.5">
+                    <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-line bg-white shadow-soft sm:h-16 sm:w-16">
+                      {product ? (
+                        <ProductImage product={product} size="thumb" />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center bg-mist">
+                          <PackageCheck className="h-6 w-6 text-brand/60" />
+                        </div>
+                      )}
+                    </div>
 
-                      <div className="min-w-0 flex-1">
-                        <div className="mb-1 flex flex-wrap items-center gap-2">
-                          <span className="rounded-md bg-navy-900 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wider text-white">
-                            Product #{index + 1}
-                          </span>
-                          {product?.catalogNumber && (
-                            <span className="rounded-md border border-line bg-white px-2 py-0.5 text-[11px] font-semibold text-muted">
-                              Cat #{product.catalogNumber}
-                            </span>
-                          )}
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <p className="text-[11px] font-semibold uppercase tracking-wider text-muted">
+                            Product {index + 1}
+                            {product?.catalogNumber && (
+                              <span className="font-medium normal-case tracking-normal"> · Cat #{product.catalogNumber}</span>
+                            )}
+                          </p>
+                          <h3 className="truncate font-display text-base font-bold text-ink">
+                            {product
+                              ? product.name
+                              : isCustom
+                                ? current?.productName || 'Product not in catalogue'
+                                : 'Choose a product'}
+                          </h3>
                           {product && (
-                            <span className="rounded-full bg-leaf-50 px-2 py-0.5 text-[11px] font-semibold text-leaf-dark ring-1 ring-leaf/20">
-                              {displayGrade(product)}
-                            </span>
+                            <p className="mt-0.5 truncate text-xs text-muted">
+                              Make: <span className="font-medium text-body">{displayMakes(product)}</span>
+                              {product.packagingType && <span> · {product.packagingType}</span>}
+                            </p>
                           )}
                         </div>
-
-                        <h3 className="truncate font-display text-base font-bold text-ink sm:text-lg">
-                          {product ? product.name : (current?.productName || 'Custom Product')}
-                        </h3>
-
-                        {product && (
-                          <p className="mt-0.5 flex items-center gap-1.5 truncate text-xs text-muted">
-                            <span>
-                              Make: <strong className="font-semibold text-body">{displayMakes(product)}</strong>
-                            </span>
-                            {product.packagingType && <span>· {product.packagingType}</span>}
-                          </p>
+                        {fields.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => onRemove(index)}
+                            className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-lg px-2.5 text-xs font-semibold text-muted transition-colors hover:bg-red-50 hover:text-red-600"
+                            aria-label={`Remove ${current?.productName || `product ${index + 1}`}`}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                            <span className="hidden sm:inline">Remove</span>
+                          </button>
                         )}
                       </div>
                     </div>
-
-                    {fields.length > 1 && (
-                      <div className="flex justify-end shrink-0">
-                        <button
-                          type="button"
-                          onClick={() => onRemove(index)}
-                          className="inline-flex items-center gap-1.5 rounded-xl border border-transparent px-3 py-1.5 text-xs font-semibold text-muted transition-colors hover:border-red-200 hover:bg-red-50 hover:text-red-600"
-                          title="Remove this product"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                          <span>Remove</span>
-                        </button>
-                      </div>
-                    )}
                   </div>
 
-                  {/* Form Inputs Grid */}
-                  <div className="space-y-4 p-4 sm:p-5">
-                    <div>
-                      <label className="label flex items-center justify-between text-xs font-semibold text-body" htmlFor={`item-${index}-product`}>
-                        <span>Select Product / Chemical *</span>
-                        <span className="text-[11px] font-normal text-muted">Click to change product</span>
-                      </label>
-                      <select
-                        id={`item-${index}-product`}
-                        value={current?.productId ?? ''}
-                        onChange={(e) => onProductChange(index, e.target.value)}
-                        className="field cursor-pointer bg-white font-medium text-ink"
-                      >
-                        {PRODUCTS.map((p) => (
-                          <option key={p.id} value={p.id} disabled={usedIds.has(p.id) && current?.productId !== p.id}>
-                            {p.name} — {displayGrade(p)} ({displayMakes(p)})
+                  <div className="mt-4 space-y-3 sm:pl-[5.125rem]">
+                    {/* Product picker only for rows added on this page (cart items are already chosen) */}
+                    {showPicker && (
+                      <div>
+                        <label className="label" htmlFor={`item-${index}-product`}>
+                          Product *
+                        </label>
+                        <select
+                          id={`item-${index}-product`}
+                          value={current?.productId ?? ''}
+                          onChange={(e) => onProductChange(index, e.target.value)}
+                          className={clsx('field cursor-pointer', itemErrors?.productId && 'field-error')}
+                        >
+                          <option value="" disabled>
+                            Choose a product…
                           </option>
-                        ))}
-                        <option value={CUSTOM_PRODUCT_ID}>+ Other product (not in catalogue)</option>
-                      </select>
-                    </div>
+                          {PRODUCTS.map((p) => (
+                            <option key={p.id} value={p.id} disabled={usedIds.has(p.id) && current?.productId !== p.id}>
+                              {p.name} — {displayGrade(p)} ({displayMakes(p)})
+                            </option>
+                          ))}
+                          <option value={CUSTOM_PRODUCT_ID}>+ Other product (not in catalogue)</option>
+                        </select>
+                        <FieldError message={itemErrors?.productId?.message} />
+                      </div>
+                    )}
 
                     {isCustom && (
                       <div>
-                        <label className="label text-xs font-semibold text-body" htmlFor={`item-${index}-name`}>
+                        <label className="label" htmlFor={`item-${index}-name`}>
                           Product name *
                         </label>
                         <input
@@ -336,10 +367,10 @@ export function EnquiryForm() {
                       </div>
                     )}
 
-                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 [&>*]:min-w-0">
                       <div>
-                        <label className="label text-xs font-semibold text-body" htmlFor={`item-${index}-qty`}>
-                          Required Quantity *
+                        <label className="label" htmlFor={`item-${index}-qty`}>
+                          Quantity *
                         </label>
                         <input
                           id={`item-${index}-qty`}
@@ -350,12 +381,11 @@ export function EnquiryForm() {
                         />
                         <FieldError message={itemErrors?.quantity?.message} />
                       </div>
-
                       <div>
-                        <label className="label text-xs font-semibold text-body" htmlFor={`item-${index}-unit`}>
-                          Packaging Unit *
+                        <label className="label" htmlFor={`item-${index}-unit`}>
+                          Unit *
                         </label>
-                        <select id={`item-${index}-unit`} {...register(`items.${index}.unit`)} className="field cursor-pointer bg-white">
+                        <select id={`item-${index}-unit`} {...register(`items.${index}.unit`)} className="field cursor-pointer">
                           {QUANTITY_UNITS.map((u) => (
                             <option key={u} value={u}>
                               {u}
@@ -363,10 +393,9 @@ export function EnquiryForm() {
                           ))}
                         </select>
                       </div>
-
-                      <div>
-                        <label className="label text-xs font-semibold text-body" htmlFor={`item-${index}-grade`}>
-                          Grade Required *
+                      <div className="col-span-2 sm:col-span-1">
+                        <label className="label" htmlFor={`item-${index}-grade`}>
+                          Grade *
                         </label>
                         <input
                           id={`item-${index}-grade`}
@@ -378,31 +407,37 @@ export function EnquiryForm() {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                      <div>
-                        <label className="label text-xs font-semibold text-body" htmlFor={`item-${index}-make`}>
-                          Preferred Manufacturer / Make
-                        </label>
-                        <input
-                          id={`item-${index}-make`}
-                          {...register(`items.${index}.preferredMake`)}
-                          placeholder="e.g. Godrej, Savita, Indo Borex"
-                          className="field text-sm"
-                        />
+                    {/* Optional details stay folded away to keep the form short */}
+                    <details className="group/opt">
+                      <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 text-xs font-semibold text-brand hover:text-brand-dark [&::-webkit-details-marker]:hidden">
+                        <ChevronDown className="h-3.5 w-3.5 transition-transform group-open/opt:rotate-180" />
+                        Preferred make &amp; end use (optional)
+                      </summary>
+                      <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                        <div>
+                          <label className="label" htmlFor={`item-${index}-make`}>
+                            Preferred manufacturer / make
+                          </label>
+                          <input
+                            id={`item-${index}-make`}
+                            {...register(`items.${index}.preferredMake`)}
+                            placeholder="e.g. Godrej, Savita, Indo Borex"
+                            className="field"
+                          />
+                        </div>
+                        <div>
+                          <label className="label" htmlFor={`item-${index}-use`}>
+                            End application / intended use
+                          </label>
+                          <input
+                            id={`item-${index}-use`}
+                            {...register(`items.${index}.intendedApplication`)}
+                            placeholder="e.g. ointment base, hand wash"
+                            className="field"
+                          />
+                        </div>
                       </div>
-
-                      <div>
-                        <label className="label text-xs font-semibold text-body" htmlFor={`item-${index}-use`}>
-                          End Application / Intended Use
-                        </label>
-                        <input
-                          id={`item-${index}-use`}
-                          {...register(`items.${index}.intendedApplication`)}
-                          placeholder="e.g. ointment base, hand wash"
-                          className="field text-sm"
-                        />
-                      </div>
-                    </div>
+                    </details>
                   </div>
                 </div>
               );
@@ -415,11 +450,9 @@ export function EnquiryForm() {
             <button
               type="button"
               onClick={() => {
-                const next = PRODUCTS.find((p) => !usedIds.has(p.id));
-                if (next) {
-                  append(itemFromProduct(next));
-                  addItem(next);
-                } else append(EMPTY_CUSTOM);
+                // Add an empty row with a product picker, so the buyer chooses what to add
+                pendingPicker.current = true;
+                append({ ...EMPTY_CUSTOM, productId: '', productName: '', grade: '', quantity: '1' });
               }}
               className="inline-flex items-center gap-2 rounded-xl border border-dashed border-brand/40 px-4 py-2.5 text-sm font-semibold text-brand hover:border-brand hover:bg-brand-50"
             >
@@ -571,7 +604,7 @@ export function EnquiryForm() {
       </div>
 
       {/* Summary */}
-      <aside className="lg:col-span-4">
+      <aside className="min-w-0 lg:col-span-4">
         <div className="card sticky top-28 overflow-hidden">
           <div className="bg-brand-gradient p-6 text-white">
             <p className="text-xs font-semibold uppercase tracking-wider text-white/80">Enquiry summary</p>

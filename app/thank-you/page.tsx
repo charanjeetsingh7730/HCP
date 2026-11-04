@@ -1,19 +1,32 @@
 'use client';
 
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { CheckCircle2, Copy, Check, Phone, Mail, ArrowRight, FileCheck2, Search, Send } from 'lucide-react';
 import { HCP_COMPANY } from '@/data/company';
 import { buttonStyles } from '@/components/ui/button-styles';
+import { HeroBackground } from '@/components/ui/HeroBackground';
 import { EnquirySteps } from '@/components/cart/EnquirySteps';
 
 function ThankYouContent() {
   const params = useSearchParams();
   const ref = params.get('ref');
-  const name = params.get('name');
-  const email = params.get('email');
   const count = Number(params.get('count') || '1');
+  // Name and email come from sessionStorage (set by the enquiry form), never from the URL
+  const [name, setName] = useState<string | null>(null);
+  const [email, setEmail] = useState<string | null>(null);
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(sessionStorage.getItem('hcp_last_enquiry') || 'null');
+      if (saved && (!ref || saved.ref === ref)) {
+        setName(saved.name || null);
+        setEmail(saved.email || null);
+      }
+    } catch {
+      // ignore unreadable storage
+    }
+  }, [ref]);
   const [copied, setCopied] = useState(false);
 
   const copy = async () => {
@@ -109,9 +122,9 @@ function ThankYouContent() {
 export default function ThankYouPage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-navy-900 text-white">
-        <div className="bg-hex-light absolute inset-0" aria-hidden="true" />
-        <div className="container-x relative flex justify-center py-8">
+      <section className="relative isolate overflow-hidden border-b border-brand-100 bg-brand-50">
+        <HeroBackground variant="compact" />
+        <div className="container-x flex justify-center py-8">
           <EnquirySteps current={3} />
         </div>
       </section>

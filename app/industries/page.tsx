@@ -33,7 +33,7 @@ export default function IndustriesPage() {
             <a
               key={ind.id}
               href={`#${ind.slug}`}
-              className="rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-semibold text-white ring-1 ring-white/20 hover:bg-white/20"
+              className="inline-flex min-h-8 items-center rounded-full border border-line bg-white/80 px-3.5 py-1.5 text-xs font-semibold text-body shadow-soft backdrop-blur transition-colors hover:border-brand hover:text-brand"
             >
               {ind.shortTitle}
             </a>

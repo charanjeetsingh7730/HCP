@@ -28,7 +28,9 @@ export function CartTray() {
     setPrevCount(count);
   }, [count, prevCount]);
 
-  const visible = ready && count > 0 && !dismissed && !HIDDEN_ON.includes(pathname);
+  // Static export uses trailing slashes (/cart/), so compare without it
+  const path = pathname.replace(/\/+$/, '') || '/';
+  const visible = ready && count > 0 && !dismissed && !HIDDEN_ON.includes(path);
 
   return (
     <AnimatePresence>

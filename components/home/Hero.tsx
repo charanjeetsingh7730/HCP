@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -10,6 +10,7 @@ import { PRODUCTS, ProductRecord } from '@/data/products';
 import { MANUFACTURERS } from '@/data/manufacturers';
 import { buttonStyles } from '@/components/ui/button-styles';
 import { CountUp } from '@/components/ui/CountUp';
+import { HeroBackground } from '@/components/ui/HeroBackground';
 
 const QUICK_SEARCHES = ['Boric Acid', 'Glycerin', 'Liquid Paraffin', 'SLES', 'Zinc Oxide'];
 
@@ -23,30 +24,11 @@ const CARD_POSITIONS = [
   'left-0 bottom-[26%] sm:-left-4 lg:-left-8',
 ];
 
-// Hexagon cells (the logo's motif) that softly glow in the background
-const GLOW_HEXES = [
-  { pos: 'left-[6%] top-[14%]', size: 'h-16 w-16', tone: 'text-brand-light', delay: '0s' },
-  { pos: 'left-[42%] top-[8%]', size: 'h-10 w-10', tone: 'text-leaf', delay: '-1.5s' },
-  { pos: 'right-[6%] top-[10%]', size: 'h-20 w-20', tone: 'text-brand', delay: '-3s' },
-  { pos: 'left-[30%] bottom-[10%]', size: 'h-12 w-12', tone: 'text-leaf', delay: '-4.5s' },
-  { pos: 'right-[40%] bottom-[22%]', size: 'h-14 w-14', tone: 'text-brand-light', delay: '-2s' },
-];
-
 const SOURCED_FROM = ['Godrej', 'Savita', 'Proto Chemical', 'Manali', 'Sukhjit'];
 
 export function Hero() {
   const router = useRouter();
   const reduce = useReducedMotion();
-  const sectionRef = useRef<HTMLElement>(null);
-
-  // Moves the hexagon spotlight with the cursor via CSS variables (no re-render)
-  const onPointerMove = (e: React.PointerEvent<HTMLElement>) => {
-    const el = sectionRef.current;
-    if (!el || e.pointerType !== 'mouse') return;
-    const rect = el.getBoundingClientRect();
-    el.style.setProperty('--hx', `${e.clientX - rect.left}px`);
-    el.style.setProperty('--hy', `${e.clientY - rect.top}px`);
-  };
   const [query, setQuery] = useState('');
 
   const submit = (e: React.FormEvent) => {
@@ -66,36 +48,9 @@ export function Hero() {
   ];
 
   return (
-    <section
-      ref={sectionRef}
-      onPointerMove={onPointerMove}
-      className="relative isolate overflow-hidden bg-brand-50 [--hx:78%] [--hy:35%]"
-    >
+    <section className="relative isolate overflow-hidden bg-brand-50">
       {/* Background: soft brand mesh + hexagon pattern from the logo, brighter around the cursor */}
-      <div
-        className="absolute inset-0 -z-10 bg-[radial-gradient(60%_70%_at_80%_30%,#AFD8F4_0%,transparent_70%),radial-gradient(50%_60%_at_5%_100%,#D4F0DE_0%,transparent_70%),linear-gradient(180deg,#EDF6FD,#E2EFF9)]"
-        aria-hidden="true"
-      />
-      <div className="bg-hex mask-radial absolute inset-0 -z-10 opacity-80" aria-hidden="true" />
-      <div
-        className="bg-hex-strong absolute inset-0 -z-10 hidden lg:block"
-        style={{
-          WebkitMaskImage: 'radial-gradient(260px circle at var(--hx) var(--hy), #000, transparent 75%)',
-          maskImage: 'radial-gradient(260px circle at var(--hx) var(--hy), #000, transparent 75%)',
-        }}
-        aria-hidden="true"
-      />
-      {GLOW_HEXES.map((h) => (
-        <svg
-          key={h.pos}
-          viewBox="0 0 56 64"
-          className={`animate-hex-glow absolute -z-10 hidden md:block ${h.pos} ${h.size} ${h.tone}`}
-          style={{ animationDelay: h.delay }}
-          aria-hidden="true"
-        >
-          <path d="M28 2 L54 17 L54 47 L28 62 L2 47 L2 17 Z" fill="currentColor" fillOpacity="0.12" stroke="currentColor" strokeOpacity="0.45" strokeWidth="1.5" />
-        </svg>
-      ))}
+      <HeroBackground />
 
       <div className="container-x grid items-center gap-14 pb-14 pt-10 sm:pb-20 sm:pt-14 lg:grid-cols-12 lg:gap-8 lg:pb-24 lg:pt-16">
         {/* Copy */}

@@ -63,7 +63,8 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
   return (
     <>
-      <div className="border-b border-line bg-white">
+      <div className="relative isolate overflow-hidden border-b border-brand-100 bg-brand-soft">
+        <div className="bg-hex mask-fade-left absolute inset-0 -z-10 opacity-80" aria-hidden="true" />
         <nav aria-label="Breadcrumb" className="container-x py-4">
           <ol className="flex flex-wrap items-center gap-1.5 text-xs text-muted">
             <li>

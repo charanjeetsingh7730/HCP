@@ -40,8 +40,12 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
   }, [open, onOpenChange]);
 
   useEffect(() => {
-    if (!open) setQuery('');
-    document.body.style.overflow = open ? 'hidden' : '';
+    if (!open) {
+      setQuery('');
+      return;
+    }
+    // Lock page scroll only while open, so closing never clobbers another overlay's lock
+    document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = '';
     };

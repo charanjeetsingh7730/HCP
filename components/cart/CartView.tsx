@@ -23,6 +23,7 @@ import { ProductImage } from '@/components/products/ProductImage';
 import { ProductCard } from '@/components/products/ProductCard';
 import { useCart } from './CartContext';
 import { EnquirySteps } from './EnquirySteps';
+import { HeroBackground } from '@/components/ui/HeroBackground';
 
 export function CartView() {
   const { items, ready, updateItem, removeItem, clearCart } = useCart();
@@ -39,14 +40,13 @@ export function CartView() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-navy-900 text-white">
-        <div className="bg-hex-light absolute inset-0" aria-hidden="true" />
-        <div className="absolute -right-20 -top-24 h-72 w-72 rounded-full bg-brand-light/25 blur-3xl" aria-hidden="true" />
-        <div className="container-x relative flex flex-col gap-6 py-10 sm:py-12 md:flex-row md:items-end md:justify-between">
+      <section className="relative isolate overflow-hidden border-b border-brand-100 bg-brand-50">
+        <HeroBackground variant="compact" />
+        <div className="container-x flex flex-col gap-6 py-10 sm:py-12 md:flex-row md:items-end md:justify-between">
           <div>
-            <span className="eyebrow eyebrow-light">Step 1 of 3</span>
-            <h1 className="mt-3 text-3xl font-extrabold text-white sm:text-4xl">Your Enquiry Cart</h1>
-            <p className="mt-2 max-w-xl text-white/70">
+            <span className="eyebrow">Step 1 of 3</span>
+            <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">Your Enquiry Cart</h1>
+            <p className="mt-2 max-w-xl text-body">
               Review products and quantities. There is no online payment — HCP will reply with price, availability and COA.
             </p>
           </div>
@@ -54,7 +54,7 @@ export function CartView() {
         </div>
       </section>
 
-      <section className="bg-mist py-10 sm:py-14">
+      <section className="bg-mist pb-28 pt-10 sm:pt-14 lg:pb-14">
         <div className="container-x">
           {!ready ? (
             <div className="card h-64 animate-pulse" />
@@ -87,9 +87,9 @@ export function CartView() {
               </div>
             </div>
           ) : (
-            <div className="grid gap-8 lg:grid-cols-12">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
               {/* Items */}
-              <div className="lg:col-span-8">
+              <div className="min-w-0 lg:col-span-8">
                 <div className="card overflow-hidden">
                   <div className="flex items-center justify-between border-b border-line px-5 py-4 sm:px-6">
                     <h2 className="text-lg font-bold">
@@ -108,10 +108,11 @@ export function CartView() {
                     {items.map((item) => {
                       const product = PRODUCTS.find((p) => p.id === item.productId);
                       return (
-                        <li key={item.productId} className="flex flex-col gap-4 p-5 sm:flex-row sm:p-6">
+                        <li key={item.productId} className="flex gap-3.5 p-4 sm:gap-4 sm:p-6">
                           <Link
                             href={`/products/${item.slug}`}
-                            className="relative h-28 w-full shrink-0 overflow-hidden rounded-xl border border-line sm:h-24 sm:w-28"
+                            className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-line sm:h-24 sm:w-28"
+                            aria-label={`View details for ${item.name}`}
                           >
                             {product && <ProductImage product={product} size="thumb" />}
                           </Link>
@@ -137,7 +138,7 @@ export function CartView() {
                               </button>
                             </div>
 
-                            <div className="mt-4 grid grid-cols-2 gap-3 sm:max-w-md">
+                            <div className="mt-3 grid grid-cols-2 gap-3 sm:mt-4 sm:max-w-md [&>*]:min-w-0">
                               <label className="block">
                                 <span className="label">Quantity</span>
                                 <input
@@ -180,7 +181,7 @@ export function CartView() {
               </div>
 
               {/* Summary */}
-              <aside className="lg:col-span-4">
+              <aside className="min-w-0 lg:col-span-4">
                 <div className="card sticky top-28 p-6">
                   <h2 className="text-lg font-bold">Enquiry Summary</h2>
                   <dl className="mt-4 space-y-2 text-sm">
@@ -245,6 +246,15 @@ export function CartView() {
           )}
         </div>
       </section>
+
+      {/* Mobile: keep the next step in reach while scrolling a long cart */}
+      {ready && items.length > 0 && (
+        <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-white/95 px-4 py-3 pr-16 shadow-[0_-8px_24px_rgba(1,23,51,0.08)] backdrop-blur-md [padding-bottom:max(0.75rem,env(safe-area-inset-bottom))] lg:hidden">
+          <Link href="/request-quote" className={buttonStyles('primary', 'md', 'w-full')}>
+            Proceed to Send Enquiry ({items.length}) <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      )}
     </>
   );
 }
