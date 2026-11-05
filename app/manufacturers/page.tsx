@@ -24,7 +24,7 @@ export default function ManufacturersPage() {
         image="/assets/photos/process-plant.jpg"
       />
 
-      <section className="section bg-mist">
+      <section className="bg-mist pt-16 pb-28 sm:pt-20 sm:pb-40 lg:pt-24 lg:pb-44">
         <div className="container-x">
           <div className="mb-8 flex items-start gap-3 rounded-2xl border border-brand-100 bg-white p-5 text-sm text-body">
             <Info className="mt-0.5 h-5 w-5 shrink-0 text-brand" />

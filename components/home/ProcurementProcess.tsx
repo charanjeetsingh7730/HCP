@@ -1,19 +1,31 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Search, ShoppingCart, Send, FileCheck2, ArrowRight, Clock } from 'lucide-react';
+import { SectionHeading } from '@/components/ui/SectionHeading';
 import { buttonStyles } from '@/components/ui/button-styles';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
 
 const STEPS = [
-  { icon: Search, title: 'Find Your Products', text: 'Search the catalogue by chemical name, grade, manufacturer or application.' },
-  { icon: ShoppingCart, title: 'Add to Cart', text: 'Add every material you need and set the quantity and unit in your enquiry cart.' },
   {
+    step: '01',
+    icon: Search,
+    title: 'Find Your Products',
+    text: 'Search the catalogue by chemical name, grade, manufacturer or application.',
+  },
+  {
+    step: '02',
+    icon: ShoppingCart,
+    title: 'Add to Cart',
+    text: 'Add every material you need and set the quantity and unit in your enquiry cart.',
+  },
+  {
+    step: '03',
     icon: Send,
     title: 'Send One Enquiry',
     text: 'Share your company and delivery details. No payment — the enquiry is emailed to our desk.',
   },
   {
+    step: '04',
     icon: FileCheck2,
     title: 'Receive Your Quotation',
     text: 'We confirm grade and stock, then email the price, delivery terms and batch COA.',
@@ -22,65 +34,125 @@ const STEPS = [
 
 export function ProcurementProcess() {
   return (
-    <section className="section relative isolate overflow-hidden bg-navy-950 text-white">
-      {/* Calm navy backdrop with two soft brand glows */}
-      <div className="absolute -left-40 top-0 -z-10 h-[30rem] w-[30rem] rounded-full bg-brand/25 blur-3xl" aria-hidden="true" />
-      <div className="absolute -bottom-40 right-0 -z-10 h-[30rem] w-[30rem] rounded-full bg-leaf/15 blur-3xl" aria-hidden="true" />
+    <section className="section relative isolate overflow-hidden bg-[#01142F] text-white">
+      {/* Background ambient lighting - clean deep corporate navy without messy photo textures */}
+      <div
+        className="absolute inset-0 -z-10 bg-gradient-to-b from-[#01142F] via-[#021F47] to-[#01142F]"
+        aria-hidden="true"
+      />
+      {/* Soft central brand spotlight */}
+      <div
+        className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_75%_55%_at_50%_0%,rgba(4,146,219,0.24),transparent_70%)]"
+        aria-hidden="true"
+      />
+      {/* Bottom emerald accent glow (echoing HCP green) */}
+      <div
+        className="absolute -bottom-24 -left-20 -z-10 h-80 w-80 rounded-full bg-leaf/15 blur-3xl"
+        aria-hidden="true"
+      />
+      {/* Subtle hexagon lattice texture softly faded at edges */}
+      <div className="bg-hex-light mask-radial absolute inset-0 -z-10 opacity-30" aria-hidden="true" />
 
-      <div className="container-x grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
-        {/* Left: heading, photo and CTA */}
-        <Reveal from="left" className="lg:col-span-5">
-          <span className="eyebrow eyebrow-light">How It Works</span>
-          <h2 className="mt-3 text-3xl font-bold leading-tight text-white sm:text-4xl">
-            From Cart to Quotation in <span className="text-leaf">Four Steps</span>
-          </h2>
-          <p className="mt-4 max-w-md text-base leading-relaxed text-white/75">
-            Built for purchase teams: one enquiry for many products, answered with real prices and documents.
-          </p>
+      {/* Top and Bottom subtle accent borders */}
+      <div
+        className="absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-brand-light/40 to-transparent"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-x-0 bottom-0 -z-10 h-px bg-gradient-to-r from-transparent via-brand-light/20 to-transparent"
+        aria-hidden="true"
+      />
 
-          <div className="relative mt-8 aspect-[16/10] overflow-hidden rounded-3xl ring-1 ring-white/10">
-            <Image
-              src="/assets/photos/qc-pipette.jpg"
-              alt="Lab technician pipetting samples into a test-tube rack"
-              fill
-              sizes="(min-width: 1024px) 38vw, 100vw"
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 to-transparent" />
-            <div className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-2 text-xs font-semibold text-navy sm:bottom-5 sm:left-5">
-              <Clock className="h-4 w-4 text-leaf-dark" />
-              Quotation with COA, straight to your inbox
-            </div>
-          </div>
-
-          <Link href="/products" className={buttonStyles('primary', 'lg', 'mt-8 w-full shadow-none sm:w-auto')}>
-            Start Browsing <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Link>
+      <div className="container-x relative">
+        <Reveal>
+          <SectionHeading
+            tone="dark"
+            align="center"
+            eyebrow="How It Works"
+            title="From Cart to Quotation in Four Steps"
+            description="Built for purchase teams: one enquiry for many products, answered with real prices and documents."
+          />
         </Reveal>
 
-        {/* Right: numbered steps */}
-        <Stagger as="ol" className="relative lg:col-span-7">
-          {STEPS.map(({ icon: Icon, title, text }, i) => (
-            <StaggerItem
-              as="li"
-              key={title}
-              className="group relative flex gap-5 border-b border-white/10 py-6 first:pt-0 last:border-b-0 last:pb-0 sm:gap-7"
-            >
-              <span className="w-12 shrink-0 font-display text-4xl font-extrabold leading-none text-white/15 sm:w-20 transition-colors duration-300 group-hover:text-leaf sm:text-6xl">
-                0{i + 1}
-              </span>
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-3">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-brand-light ring-1 ring-white/15 transition-colors duration-300 group-hover:bg-brand group-hover:text-white">
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  <h3 className="text-lg font-bold text-white sm:text-xl">{title}</h3>
+        <div className="relative mt-2">
+          {/* Subtle horizontal connecting trail for desktop */}
+          <div
+            className="pointer-events-none absolute left-12 right-12 top-14 -z-0 hidden lg:block"
+            aria-hidden="true"
+          >
+            <div className="h-[2px] w-full bg-gradient-to-r from-brand-light/20 via-brand-light/40 to-leaf/30" />
+            <div className="absolute inset-0 h-[2px] w-1/4 animate-sweep bg-gradient-to-r from-transparent via-white/70 to-transparent" />
+          </div>
+
+          <Stagger as="ol" className="relative mx-auto grid max-w-xl gap-6 sm:max-w-none sm:grid-cols-2 lg:grid-cols-4">
+            {STEPS.map(({ step, icon: Icon, title, text }, i) => (
+              <StaggerItem
+                as="li"
+                key={title}
+                className={[
+                  'group relative flex flex-col justify-between rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-md transition-all duration-300',
+                  'hover:-translate-y-1 hover:border-brand-light/50 hover:bg-white/[0.08] hover:shadow-[0_12px_32px_rgba(4,116,194,0.22)]',
+                ].join(' ')}
+              >
+                {/* Connecting arrow pill between cards on desktop */}
+                {i < STEPS.length - 1 && (
+                  <div
+                    className="absolute -right-3.5 top-14 z-20 hidden h-7 w-7 items-center justify-center rounded-full border border-brand-light/40 bg-[#021F47] text-brand-light shadow-md lg:flex"
+                    aria-hidden="true"
+                  >
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </div>
+                )}
+
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-brand to-brand-dark text-white shadow-brand ring-1 ring-white/25 transition-transform duration-300 group-hover:scale-105">
+                      <Icon className="h-6 w-6 sm:h-7 sm:w-7" />
+                    </span>
+                    <span
+                      className="font-display text-3xl font-extrabold tracking-tight text-white/20 transition-colors duration-300 group-hover:text-brand-light/60"
+                      aria-hidden="true"
+                    >
+                      {step}
+                    </span>
+                  </div>
+
+                  <div className="mt-5">
+                    <h3 className="font-display text-base font-bold text-white transition-colors duration-200 group-hover:text-brand-light sm:text-lg">
+                      {title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-white/75">{text}</p>
+                  </div>
                 </div>
-                <p className="mt-3 max-w-lg text-sm leading-relaxed text-white/70 sm:text-base">{text}</p>
-              </div>
-            </StaggerItem>
-          ))}
-        </Stagger>
+
+                <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs text-brand-light/80">
+                  <span className="font-semibold uppercase tracking-wider">Step {i + 1}</span>
+                  <span className="text-white/40 group-hover:text-white/70 transition-colors">Phase {i + 1}/4</span>
+                </div>
+              </StaggerItem>
+            ))}
+          </Stagger>
+        </div>
+
+        {/* Action buttons and trust note */}
+        <Reveal className="mx-auto mt-12 flex max-w-xl flex-col items-center gap-4 sm:max-w-none">
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:justify-center">
+            <Link href="/products" className={buttonStyles('primary', 'lg', 'w-full sm:w-auto shadow-brand')}>
+              Start Browsing <ArrowRight className="h-4 w-4 ml-1.5" />
+            </Link>
+            <Link
+              href="/cart"
+              className={buttonStyles('light', 'lg', 'w-full sm:w-auto border-white/20 bg-white/10 text-white hover:bg-white/20')}
+            >
+              <ShoppingCart className="h-4 w-4 mr-1.5" /> View Cart
+            </Link>
+          </div>
+
+          <p className="flex items-center gap-2 text-xs text-white/60">
+            <Clock className="h-3.5 w-3.5 text-leaf" />
+            <span>Average quotation turnaround: <strong>under 2 hours</strong> during standard business hours</span>
+          </p>
+        </Reveal>
       </div>
     </section>
   );

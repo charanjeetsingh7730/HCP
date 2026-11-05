@@ -21,7 +21,7 @@ export default function CategoriesPage() {
         description="Six product families covering pharmaceutical, personal-care, detergent and industrial requirements."
         image="/assets/photos/chemistry-flasks.jpg"
       />
-      <section className="section bg-mist">
+      <section className="bg-mist pt-16 pb-28 sm:pt-20 sm:pb-40 lg:pt-24 lg:pb-44">
         <div className="container-x grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {categories.map((c) => (
             <CategoryCard key={c.id} category={c} />

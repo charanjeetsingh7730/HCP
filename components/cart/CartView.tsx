@@ -54,7 +54,7 @@ export function CartView() {
         </div>
       </section>
 
-      <section className="bg-mist pb-28 pt-10 sm:pt-14 lg:pb-14">
+      <section className="bg-mist pt-10 pb-[5.5rem] sm:pt-14 sm:pb-[8.5rem]">
         <div className="container-x">
           {!ready ? (
             <div className="card h-64 animate-pulse" />

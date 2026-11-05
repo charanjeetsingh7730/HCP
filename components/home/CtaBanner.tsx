@@ -8,7 +8,7 @@ import { MoleculeDecor } from '@/components/ui/MoleculeDecor';
 
 export function CtaBanner() {
   return (
-    <section className="bg-white pb-20 sm:pb-24">
+    <section className="bg-white pb-28 sm:pb-40 lg:pb-44">
       <div className="container-x">
         <div className="relative isolate overflow-hidden rounded-[2rem] bg-brand-gradient animate-gradient-pan px-6 py-12 text-white shadow-lift sm:px-12 sm:py-16 lg:px-16">
           <Image src="/assets/photos/lab-glassware.jpg" alt="" fill sizes="100vw" className="-z-20 object-cover opacity-15 mix-blend-luminosity" />

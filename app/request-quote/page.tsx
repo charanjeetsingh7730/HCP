@@ -27,7 +27,7 @@ export default function RequestQuotePage() {
         </div>
       </section>
 
-      <section className="bg-mist py-10 sm:py-14">
+      <section className="bg-mist pt-10 pb-[5.5rem] sm:pt-14 sm:pb-[8.5rem]">
         <div className="container-x">
           <Suspense fallback={<div className="card h-96 animate-pulse" />}>
             <EnquiryForm />

@@ -44,7 +44,7 @@ export default async function ManufacturerDetailPage({ params }: ManufacturerPag
         }
       />
 
-      <section className="bg-mist py-12 sm:py-16">
+      <section className="bg-mist pt-12 pb-24 sm:pt-16 sm:pb-36">
         <div className="container-x">
           <div className="mb-8 flex items-start gap-3 rounded-2xl border border-line bg-white p-5 text-sm text-body">
             <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-leaf" />

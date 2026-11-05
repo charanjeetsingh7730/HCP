@@ -1,0 +1,39 @@
+# Hostinger / Apache config for the static Next.js export (copied into out/ and dist/ by the build)
+
+Options -Indexes
+DirectoryIndex index.html index.php
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Forms post to /api/contact and /api/enquiry — serve them from the PHP handlers.
+  # Internal rewrite (no redirect) so the POST body is kept.
+  RewriteRule ^api/(contact|enquiry)/?$ api/$1.php [L,QSA]
+
+  # Pages are exported as /page/index.html (trailingSlash: true).
+  # Add the trailing slash for clean URLs like /about -> /about/
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_URI} !\.[a-zA-Z0-9]+$
+  RewriteCond %{REQUEST_URI} !/$
+  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}/index.html -f
+  RewriteRule ^(.*)$ /$1/ [R=301,L]
+</IfModule>
+
+# Branded 404 page from the export
+ErrorDocument 404 /404.html
+
+# Cache hashed build assets for a long time, HTML always fresh
+<IfModule mod_headers.c>
+  # Next.js JS/CSS/fonts have content hashes in their names
+  <FilesMatch "\.(js|css|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # Images keep their names when replaced, so cache them for a week only
+  <FilesMatch "\.(png|jpe?g|webp|svg|ico)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>

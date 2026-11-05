@@ -17,7 +17,7 @@ export default function PrivacyPage() {
         title="Privacy Policy"
         description={`Effective October 2026 · ${HCP_COMPANY.legalName}`}
       />
-      <section className="bg-mist py-12 sm:py-16">
+      <section className="bg-mist pt-12 pb-24 sm:pt-16 sm:pb-36">
         <div className="container-x">
           <article className="prose-legal card mx-auto max-w-3xl space-y-3 p-6 sm:p-10">
             <h2>1. About this website</h2>

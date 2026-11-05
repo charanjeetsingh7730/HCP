@@ -35,7 +35,7 @@ export default function FaqPage() {
         description="Everything about enquiries, grades, documentation, packaging and delivery."
       />
 
-      <section className="section bg-mist">
+      <section className="bg-mist pt-16 pb-28 sm:pt-20 sm:pb-40 lg:pt-24 lg:pb-44">
         <div className="container-x grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-8">
             <Accordion items={FAQS} allowMultiple />

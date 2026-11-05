@@ -43,7 +43,7 @@ export default function ContactPage() {
         image="/assets/photos/logistics-fleet.jpg"
       />
 
-      <section className="bg-mist py-12 sm:py-16">
+      <section className="bg-mist pt-12 pb-24 sm:pt-16 sm:pb-36">
         <div className="container-x">
           <div className="grid gap-5 md:grid-cols-3">
             {cards.map(({ icon: Icon, title, lines }) => (

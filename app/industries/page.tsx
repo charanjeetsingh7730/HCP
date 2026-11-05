@@ -45,7 +45,15 @@ export default function IndustriesPage() {
         const recommended = allProducts.filter((p) => ind.recommendedProductSlugs.includes(p.slug));
         const reversed = idx % 2 === 1;
         return (
-          <section key={ind.id} id={ind.slug} className={clsx('scroll-mt-24 py-14 sm:py-18', reversed ? 'bg-mist' : 'bg-white')}>
+          <section
+            key={ind.id}
+            id={ind.slug}
+            className={clsx(
+              'scroll-mt-24 pt-14 sm:pt-[4.5rem]',
+              idx === industries.length - 1 ? 'pb-[6.5rem] sm:pb-[9.5rem]' : 'pb-14 sm:pb-[4.5rem]',
+              reversed ? 'bg-mist' : 'bg-white'
+            )}
+          >
             <div className="container-x grid items-stretch gap-10 lg:grid-cols-2 lg:gap-12">
               {/* Left Column: Visual & Compliance Badges */}
               <div className={clsx('relative flex flex-col justify-between h-full', reversed && 'lg:order-2')}>

@@ -128,7 +128,7 @@ export default function ThankYouPage() {
           <EnquirySteps current={3} />
         </div>
       </section>
-      <section className="bg-mist py-12 sm:py-16">
+      <section className="bg-mist pt-12 pb-24 sm:pt-16 sm:pb-36">
         <div className="container-x">
           <Suspense fallback={<div className="card mx-auto h-96 max-w-3xl animate-pulse" />}>
             <ThankYouContent />

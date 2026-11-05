@@ -189,7 +189,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       </section>
 
       {/* COA band */}
-      <section className="bg-white pb-14">
+      <section className={`bg-white ${related.length > 0 ? 'pb-14' : 'pb-[5.5rem] sm:pb-[8.5rem]'}`}>
         <div className="container-x">
           <div className="relative overflow-hidden rounded-3xl bg-navy-900 p-8 text-white sm:p-10">
             <div className="bg-hex-light absolute inset-0" aria-hidden="true" />
@@ -217,7 +217,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       </section>
 
       {related.length > 0 && (
-        <section className="bg-mist py-14 sm:py-16">
+        <section className="bg-mist pt-14 pb-[6.5rem] sm:pt-16 sm:pb-36">
           <div className="container-x">
             <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
               <div>

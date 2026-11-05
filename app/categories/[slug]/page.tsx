@@ -46,7 +46,7 @@ export default async function CategoryDetailPage({ params }: CategoryPageProps) 
         }
       />
 
-      <section className="bg-mist py-12 sm:py-16">
+      <section className="bg-mist pt-12 pb-24 sm:pt-16 sm:pb-36">
         <div className="container-x">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {products.map((p) => (

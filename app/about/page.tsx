@@ -102,7 +102,7 @@ export default function AboutPage() {
       </section>
 
       {/* Profile + contact */}
-      <section className="section bg-white">
+      <section className="pt-16 pb-28 sm:pt-20 sm:pb-40 lg:pt-24 lg:pb-44 bg-white">
         <div className="container-x grid items-stretch gap-10 lg:gap-14 lg:grid-cols-2">
           <div className="relative mx-auto flex w-full max-w-md items-center justify-center overflow-hidden rounded-3xl border border-line shadow-lift h-full bg-mist/30">
             <Image
